@@ -1,25 +1,19 @@
 # Created files
 
-<<<<<<< HEAD
-=======
 parametric_data/chobani
 parametric_data/redbull
 parametric_data/videos
 
->>>>>>> origin/add-rtx-5090
 # Analysis
 analysis/outputs/
 analysis/data/
 
-<<<<<<< HEAD
-=======
 # Node / Next.js
 node_modules/
 .next/
 out/
 .env.local
 
->>>>>>> origin/add-rtx-5090
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -36,11 +30,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-<<<<<<< HEAD
-lib/
-=======
 # lib/  — disabled: conflicts with Analytics_UI/src/lib/
->>>>>>> origin/add-rtx-5090
 lib64/
 parts/
 sdist/
@@ -230,8 +220,4 @@ cython_debug/
 # Marimo
 marimo/_static/
 marimo/_lsp/
-<<<<<<< HEAD
 __marimo__/
-=======
-__marimo__/
->>>>>>> origin/add-rtx-5090
