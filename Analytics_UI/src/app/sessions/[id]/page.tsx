@@ -9,8 +9,9 @@ import { TimelineTab } from "@/components/timeline-tab";
 import { GraphTab } from "@/components/graph-tab";
 import { DeviationsTab } from "@/components/deviations-tab";
 import { ReportTab } from "@/components/report-tab";
+import { SkillsTab } from "@/components/skills-tab";
 
-const TABS = ["Overview", "Video & Timeline", "Procedure Graph", "Deviation Analysis", "Report"] as const;
+const TABS = ["Overview", "Video & Timeline", "Procedure Graph", "Deviation Analysis", "Skills Assessment", "Data Export"] as const;
 type Tab = typeof TABS[number];
 
 export default function SessionDetail() {
@@ -97,7 +98,8 @@ export default function SessionDetail() {
       {tab === "Video & Timeline" && <TimelineTab events={events} nodes={nodes} report={report} />}
       {tab === "Procedure Graph" && <GraphTab nodes={nodes} edges={edges} events={events} report={report} />}
       {tab === "Deviation Analysis" && <DeviationsTab report={report} />}
-      {tab === "Report" && <ReportTab report={report} runId={run.id} />}
+      {tab === "Skills Assessment" && <SkillsTab events={events} procedureId={run.procedure_id} />}
+      {tab === "Data Export" && <ReportTab report={report} events={events} nodes={nodes} run={run} procedure={procedure} runId={run.id} />}
     </div>
   );
 }
