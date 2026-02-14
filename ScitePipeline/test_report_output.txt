@@ -1,0 +1,55 @@
+============================================================
+POST-OPERATIVE COMPLIANCE REPORT
+Procedure: Laparoscopic Cholecystectomy
+Run ID: test-run-001
+Generated: 2026-02-14 09:34 UTC
+Compliance Score: 85%
+============================================================
+
+Steps expected: 20
+Steps observed: 19
+Deviations found: 3
+  Confirmed: 3
+  Mitigated: 0
+  Needs review: 0
+
+------------------------------------------------------------
+CONFIRMED DEVIATIONS
+------------------------------------------------------------
+  [CONFIRMED] Critical View of Safety
+    Type: skipped_safety
+    Phase: safety
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Critical View of Safety' (skipped_safety)
+  Citation landscape: 1181699 supporting, 251693 contrasting
+  Snippets analyzed by NLI model: 13
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 100%] "This delay in diagnosis can result in adverse outcomes d...
+    Citations: [scite: 1181699 supporting, 251693 contrasting], The R4U Planes for the Zonal Demarcation for Safe Laparoscopic Cholecystectomy (DOI: 10.1007/s00268-020-05908-1), Imaging-Enhancing System (DOI: 10.1007/978-981-19-3755-2_8), Gallbladder Agenesis and a Large Common Bile Duct Stone: A Case Report and Liter (DOI: 10.7759/cureus.89777), Laparoscopic Cholecystectomy in Situs Inversus, a Novel Port Placement Technique (DOI: 10.32592/ircmj.2021.23.10.1168)
+
+  [CONFIRMED] Clip Cystic Duct
+    Type: out_of_order
+    Phase: division
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Clip Cystic Duct' (out_of_order)
+  Citation landscape: 1387562 supporting, 169176 contrasting
+  Snippets analyzed by NLI model: 11
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 100%] "One problem with laparoscopic cholecystectomy is the 0.6% to 2% i...
+    Citations: [scite: 1387562 supporting, 169176 contrasting], Variant origin of a common trunk of the accessory hepatic artery and cystic arte (DOI: 10.13172/2052-0077-2-7-726), THE LEARNING CURVE OF FIRST ONE HUNDRED LAPAROSCOPIC CHOLECYSTECTOMY (DOI: 10.33762/bsurg.2010.55435), Sealing of cystic duct with bipolar electrocoagulation (DOI: 10.1007/s004640090054), THE BLOOD SUPPLY OF THE BILIARY DUCTAL SYSTEM AND ITS RELEVANCE TO VASCULOBILIAR (DOI: 10.1046/j.1440-1622.1999.01702.x)
+
+  [CONFIRMED] Clip Cystic Artery
+    Type: out_of_order
+    Phase: division
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Clip Cystic Artery' (out_of_order)
+  Citation landscape: 1387378 supporting, 169118 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 100%] "Exact information regarding the cystic artery and its variation...
+    Citations: [scite: 1387378 supporting, 169118 contrasting], LAPAROSCOPIC DESCRIPTIONS OF COURSE, RELATION AND VARIATIONS OF CYSTIC ARTERY IN (DOI: 10.51642/ppmj.v24i2.231), H-type double gallbladder malformation: a case report (DOI: 10.1093/jscr/rjaf838), Post laparoscopic cholecystectomy gastro intestinal bleed (DOI: 10.59284/jgpeman182), Right hepatic artery forming caterpillar hump, perforating Calot's triangle into (DOI: 10.1002/jhbp.231)
+
+============================================================

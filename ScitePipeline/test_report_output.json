@@ -1,0 +1,74 @@
+{
+  "procedure_run_id": "test-run-001",
+  "procedure_id": "laparoscopic_cholecystectomy",
+  "procedure_name": "Laparoscopic Cholecystectomy",
+  "compliance_score": 0.85,
+  "total_expected": 20,
+  "total_observed": 19,
+  "confirmed_count": 3,
+  "mitigated_count": 0,
+  "review_count": 0,
+  "confirmed_deviations": [
+    {
+      "node_id": "critical_view_of_safety",
+      "node_name": "Critical View of Safety",
+      "phase": "safety",
+      "deviation_type": "skipped_safety",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Critical View of Safety' (skipped_safety)\n  Citation landscape: 1181699 supporting, 251693 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 100%] \"This delay in diagnosis can result in adverse outcomes due to unnecessary surgical dissection. The attempt to identify a non-existent gallbladder and obtain the critical view of safety may increase the risk of iatrogenic bile duct injury due to excessive manipulation [  ].\"\n    Source: Gallbladder Agenesis and a Large Common Bile Duct Stone: A Case Report and Liter (DOI: 10.7759/cureus.89777)\n  - [NLI confidence: 98%] \"Epigastric pain has been reported in one-third of patients . Since the successful primary cholecystectomy was performed in a patient with SIT in 1991, 85 cases have been reported in the literature . One of the foremost necessary steps is to place the trocars to get a critical vie\"\n    Source: Laparoscopic Cholecystectomy in Situs Inversus, a Novel Port Placement Technique (DOI: 10.32592/ircmj.2021.23.10.1168)\n  - [NLI confidence: 98%] \"Bile duct injury (BDI) is the most dreaded complication of cholecystectomy; the incidence ranges from 0.3% to 1.5% for the laparoscopic technique. Even with the introduction of the Critical View of Safety (CVS) concept by Strasberg, the incidence of bile duct injury remains aroun\"\n    Source: Imaging-Enhancing System (DOI: 10.1007/978-981-19-3755-2_8)",
+      "citations": [
+        "[scite: 1181699 supporting, 251693 contrasting]",
+        "The R4U Planes for the Zonal Demarcation for Safe Laparoscopic Cholecystectomy (DOI: 10.1007/s00268-020-05908-1)",
+        "Imaging-Enhancing System (DOI: 10.1007/978-981-19-3755-2_8)",
+        "Gallbladder Agenesis and a Large Common Bile Duct Stone: A Case Report and Liter (DOI: 10.7759/cureus.89777)",
+        "Laparoscopic Cholecystectomy in Situs Inversus, a Novel Port Placement Technique (DOI: 10.32592/ircmj.2021.23.10.1168)",
+        "Proactive Nursing Care is the Key to Successful Day Case Laparoscopic Cholecyste (DOI: 10.9734/jamps/2016/29117)",
+        "Preoperative prediction of difficult laparoscopic cholecystectomy based on diffu (DOI: 10.1111/ases.12911)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "clip_cystic_duct",
+      "node_name": "Clip Cystic Duct",
+      "phase": "division",
+      "deviation_type": "out_of_order",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Clip Cystic Duct' (out_of_order)\n  Citation landscape: 1387562 supporting, 169176 contrasting\n  Snippets analyzed by NLI model: 11\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 100%] \"One problem with laparoscopic cholecystectomy is the 0.6% to 2% incidence of postoperative cystic duct leakage: [1, This complication may be related to insufficient closure of the cystic duct after the standard closure with two metal clips. It may be speculated that necrosis of t\"\n    Source: Sealing of cystic duct with bipolar electrocoagulation (DOI: 10.1007/s004640090054)\n  - [NLI confidence: 98%] \"Before clipping, meticulous dissection and complete clearance of cystic duct and cystic artery from other tissues represent an essential step for a safe procedure. An intraoperative cholangiogram could be very helpful in case of obscure biliary and cystic duct anatomy especially \"\n    Source: Laparoscopic Cholecystectomy for Severe Acute Cholecystitis in a Patient with Si (DOI: 10.1155/2008/465272)\n  - [NLI confidence: 94%] \"Some patient factors, such as obesity, diabetes mellitus, and advanced age, may also increase the risk of clip migration.  675 After laparoscopic cholecystectomy, a clip is placed in the cystic duct to prevent bile leakage. However, in some cases, the clip can detach from the cys\"\n    Source: Migration of the Plastic Clips of the Cystic Ducts to the Bile Duct Post-Laparos (DOI: 10.37275/sjs.v7i2.108)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 56%] \"Gallstones can cause biliary colic pain, biliary obstruction, and pancreatitis. 5 Symptoms of migration of the cystic duct clip into the common bile duct can vary, depending on the degree of obstruction and the presence of complications. In some patients, clip migration may be\"\n    Source: Migration of the Plastic Clips of the Cystic Ducts to the Bile Duct Post-Laparos (DOI: 10.37275/sjs.v7i2.108)",
+      "citations": [
+        "[scite: 1387562 supporting, 169176 contrasting]",
+        "Variant origin of a common trunk of the accessory hepatic artery and cystic arte (DOI: 10.13172/2052-0077-2-7-726)",
+        "THE LEARNING CURVE OF FIRST ONE HUNDRED LAPAROSCOPIC CHOLECYSTECTOMY (DOI: 10.33762/bsurg.2010.55435)",
+        "Sealing of cystic duct with bipolar electrocoagulation (DOI: 10.1007/s004640090054)",
+        "THE BLOOD SUPPLY OF THE BILIARY DUCTAL SYSTEM AND ITS RELEVANCE TO VASCULOBILIAR (DOI: 10.1046/j.1440-1622.1999.01702.x)",
+        "The Clinical Usefulness of Simultaneous Placement of Double Endoscopic Nasobilia (DOI: 10.5946/ce.2015.48.6.542)",
+        "Preoperative factors predicting the need for additional ports during single\u2010inci (DOI: 10.1111/ases.12286)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "clip_cystic_artery",
+      "node_name": "Clip Cystic Artery",
+      "phase": "division",
+      "deviation_type": "out_of_order",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Clip Cystic Artery' (out_of_order)\n  Citation landscape: 1387378 supporting, 169118 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 100%] \"Exact information regarding the cystic artery and its variations ensures safe laparoscopic cholecystectomy.The deficient knowledge about gall bladder vasculature particularly variations of cystic artery can be dangerous and uncontrolled bleeding can occur during cholecystectomy. \"\n    Source: LAPAROSCOPIC DESCRIPTIONS OF COURSE, RELATION AND VARIATIONS OF CYSTIC ARTERY IN (DOI: 10.51642/ppmj.v24i2.231)\n  - [NLI confidence: 96%] \"The first reported case of cystic artery pseudo aneurysm complicating laparoscopic cholecystectomy was by Bergey .  Though the pathogenesis remains unclear, direct vascular injury, erosion due to clip encroachment and diathermy shorting on clips and associated infection are likel\"\n    Source: Post laparoscopic cholecystectomy gastro intestinal bleed (DOI: 10.59284/jgpeman182)\n  - [NLI confidence: 94%] \"omental adhesions around gallbladder due to inflammation of acute cholecystis  and the adhesions were removed from the gallbladder. After skeletonizing, cystic artery was clipped and divided and cystic duct also was inflamed and dilated.\"\n    Source: Single Fulcrum Laparoscopic Cholecystectomy in Situs Inversus Totalis (DOI: 10.7602/jmis.2015.18.3.89)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 60%] \"Some researchers suggest that if a double gallbladder is discovered unexpectedly during surgery, conversion to open surgery may be necessary. However, with advancements in laparoscopic techniques, laparoscopic cholecystectomy is considered safe and reliable, whether the double ga\"\n    Source: H-type double gallbladder malformation: a case report (DOI: 10.1093/jscr/rjaf838)",
+      "citations": [
+        "[scite: 1387378 supporting, 169118 contrasting]",
+        "LAPAROSCOPIC DESCRIPTIONS OF COURSE, RELATION AND VARIATIONS OF CYSTIC ARTERY IN (DOI: 10.51642/ppmj.v24i2.231)",
+        "H-type double gallbladder malformation: a case report (DOI: 10.1093/jscr/rjaf838)",
+        "Post laparoscopic cholecystectomy gastro intestinal bleed (DOI: 10.59284/jgpeman182)",
+        "Right hepatic artery forming caterpillar hump, perforating Calot's triangle into (DOI: 10.1002/jhbp.231)",
+        "Surgical Anatomy of the Hepatic Arteries in 1000 Cases (DOI: 10.1097/00000658-199407000-00008)",
+        "Preoperative factors predicting the need for additional ports during single\u2010inci (DOI: 10.1111/ases.12286)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    }
+  ],
+  "mitigated_deviations": [],
+  "review_deviations": [],
+  "report_text": "============================================================\nPOST-OPERATIVE COMPLIANCE REPORT\nProcedure: Laparoscopic Cholecystectomy\nRun ID: test-run-001\nGenerated: 2026-02-14 09:34 UTC\nCompliance Score: 85%\n============================================================\n\nSteps expected: 20\nSteps observed: 19\nDeviations found: 3\n  Confirmed: 3\n  Mitigated: 0\n  Needs review: 0\n\n------------------------------------------------------------\nCONFIRMED DEVIATIONS\n------------------------------------------------------------\n  [CONFIRMED] Critical View of Safety\n    Type: skipped_safety\n    Phase: safety\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Critical View of Safety' (skipped_safety)\n  Citation landscape: 1181699 supporting, 251693 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 100%] \"This delay in diagnosis can result in adverse outcomes d...\n    Citations: [scite: 1181699 supporting, 251693 contrasting], The R4U Planes for the Zonal Demarcation for Safe Laparoscopic Cholecystectomy (DOI: 10.1007/s00268-020-05908-1), Imaging-Enhancing System (DOI: 10.1007/978-981-19-3755-2_8), Gallbladder Agenesis and a Large Common Bile Duct Stone: A Case Report and Liter (DOI: 10.7759/cureus.89777), Laparoscopic Cholecystectomy in Situs Inversus, a Novel Port Placement Technique (DOI: 10.32592/ircmj.2021.23.10.1168)\n\n  [CONFIRMED] Clip Cystic Duct\n    Type: out_of_order\n    Phase: division\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Clip Cystic Duct' (out_of_order)\n  Citation landscape: 1387562 supporting, 169176 contrasting\n  Snippets analyzed by NLI model: 11\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 100%] \"One problem with laparoscopic cholecystectomy is the 0.6% to 2% i...\n    Citations: [scite: 1387562 supporting, 169176 contrasting], Variant origin of a common trunk of the accessory hepatic artery and cystic arte (DOI: 10.13172/2052-0077-2-7-726), THE LEARNING CURVE OF FIRST ONE HUNDRED LAPAROSCOPIC CHOLECYSTECTOMY (DOI: 10.33762/bsurg.2010.55435), Sealing of cystic duct with bipolar electrocoagulation (DOI: 10.1007/s004640090054), THE BLOOD SUPPLY OF THE BILIARY DUCTAL SYSTEM AND ITS RELEVANCE TO VASCULOBILIAR (DOI: 10.1046/j.1440-1622.1999.01702.x)\n\n  [CONFIRMED] Clip Cystic Artery\n    Type: out_of_order\n    Phase: division\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Clip Cystic Artery' (out_of_order)\n  Citation landscape: 1387378 supporting, 169118 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 100%] \"Exact information regarding the cystic artery and its variation...\n    Citations: [scite: 1387378 supporting, 169118 contrasting], LAPAROSCOPIC DESCRIPTIONS OF COURSE, RELATION AND VARIATIONS OF CYSTIC ARTERY IN (DOI: 10.51642/ppmj.v24i2.231), H-type double gallbladder malformation: a case report (DOI: 10.1093/jscr/rjaf838), Post laparoscopic cholecystectomy gastro intestinal bleed (DOI: 10.59284/jgpeman182), Right hepatic artery forming caterpillar hump, perforating Calot's triangle into (DOI: 10.1002/jhbp.231)\n\n============================================================",
+  "created_at": "2026-02-14 09:34:51.182534"
+}
