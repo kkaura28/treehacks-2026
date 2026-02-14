@@ -1,0 +1,271 @@
+{
+  "procedure": {
+    "id": "cesarean_section",
+    "name": "Cesarean Section",
+    "version": "1.0",
+    "source_documents": [
+      "WHO Surgical Safety Checklist (2009)",
+      "CD004662: Techniques for caesarean section - Cochrane Systematic Review (Hofmeyr et al. 2008)"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "who_sign_in",
+      "name": "WHO Sign In",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["anesthesiologist", "nurse", "obstetrician"],
+      "required_tools": ["who_checklist"],
+      "preconditions": []
+    },
+    {
+      "id": "regional_anesthesia",
+      "name": "Regional Anesthesia (Spinal or Epidural)",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["anesthesiologist"],
+      "required_tools": ["spinal_needle", "local_anesthetic", "iv_access", "monitoring_equipment"],
+      "preconditions": ["who_sign_in"]
+    },
+    {
+      "id": "patient_positioning",
+      "name": "Patient Positioning (Supine with Left Lateral Tilt)",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["nurse", "anesthesiologist"],
+      "required_tools": ["operating_table", "wedge_pillow"],
+      "preconditions": ["regional_anesthesia"]
+    },
+    {
+      "id": "antibiotic_prophylaxis",
+      "name": "Antibiotic Prophylaxis",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["anesthesiologist"],
+      "required_tools": ["iv_antibiotics"],
+      "preconditions": ["patient_positioning"]
+    },
+    {
+      "id": "who_time_out",
+      "name": "WHO Time Out",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["obstetrician", "anesthesiologist", "nurse"],
+      "required_tools": ["who_checklist"],
+      "preconditions": ["antibiotic_prophylaxis"]
+    },
+    {
+      "id": "skin_preparation",
+      "name": "Skin Preparation (Chlorhexidine)",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["nurse"],
+      "required_tools": ["chlorhexidine_solution", "sterile_drapes"],
+      "preconditions": ["who_time_out"]
+    },
+    {
+      "id": "skin_incision",
+      "name": "Skin Incision (Pfannenstiel or Joel-Cohen)",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["obstetrician"],
+      "required_tools": ["scalpel"],
+      "preconditions": ["skin_preparation"]
+    },
+    {
+      "id": "abdominal_wall_opening",
+      "name": "Abdominal Wall Layer Dissection",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["obstetrician", "assistant"],
+      "required_tools": ["retractors", "cautery", "scissors"],
+      "preconditions": ["skin_incision"]
+    },
+    {
+      "id": "bladder_flap_creation",
+      "name": "Bladder Flap Creation and Reflection",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["obstetrician"],
+      "required_tools": ["forceps", "scissors"],
+      "preconditions": ["abdominal_wall_opening"]
+    },
+    {
+      "id": "uterine_incision",
+      "name": "Uterine Incision (Transverse Lower Segment)",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["obstetrician"],
+      "required_tools": ["scalpel", "bandage_scissors"],
+      "preconditions": ["bladder_flap_creation"]
+    },
+    {
+      "id": "delivery_of_infant",
+      "name": "Delivery of Infant",
+      "phase": "delivery",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["obstetrician", "assistant"],
+      "required_tools": ["fundal_pressure_or_vacuum"],
+      "preconditions": ["uterine_incision"]
+    },
+    {
+      "id": "cord_clamping_and_cutting",
+      "name": "Cord Clamping and Cutting",
+      "phase": "delivery",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["obstetrician"],
+      "required_tools": ["cord_clamps", "scissors"],
+      "preconditions": ["delivery_of_infant"]
+    },
+    {
+      "id": "uterotonic_administration",
+      "name": "Uterotonic Administration (Oxytocin)",
+      "phase": "safety",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["anesthesiologist"],
+      "required_tools": ["oxytocin", "iv_line"],
+      "preconditions": ["delivery_of_infant"]
+    },
+    {
+      "id": "placental_removal",
+      "name": "Placental Removal (Cord Traction)",
+      "phase": "delivery",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["obstetrician"],
+      "required_tools": ["cord_clamp", "ring_forceps"],
+      "preconditions": ["cord_clamping_and_cutting", "uterotonic_administration"]
+    },
+    {
+      "id": "uterine_repair",
+      "name": "Uterine Incision Repair",
+      "phase": "closure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["obstetrician"],
+      "required_tools": ["absorbable_sutures", "needle_holder"],
+      "preconditions": ["placental_removal"]
+    },
+    {
+      "id": "hemostasis_check",
+      "name": "Hemostasis Check (Uterus, Adnexa, Gutters)",
+      "phase": "safety",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["obstetrician"],
+      "required_tools": ["laparotomy_pads", "suction"],
+      "preconditions": ["uterine_repair"]
+    },
+    {
+      "id": "abdominal_layer_closure",
+      "name": "Abdominal Layer Closure (Fascia and Subcutaneous)",
+      "phase": "closure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["obstetrician"],
+      "required_tools": ["absorbable_sutures", "needle_holder"],
+      "preconditions": ["hemostasis_check"]
+    },
+    {
+      "id": "skin_closure",
+      "name": "Skin Closure",
+      "phase": "closure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["obstetrician"],
+      "required_tools": ["subcuticular_sutures", "skin_stapler"],
+      "preconditions": ["abdominal_layer_closure"]
+    },
+    {
+      "id": "who_sign_out",
+      "name": "WHO Sign Out",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["obstetrician", "anesthesiologist", "nurse"],
+      "required_tools": ["who_checklist"],
+      "preconditions": ["skin_closure"]
+    },
+    {
+      "id": "postpartum_hemorrhage_control",
+      "name": "Postpartum Hemorrhage Control",
+      "phase": "complication",
+      "mandatory": false,
+      "optional": true,
+      "safety_critical": true,
+      "actors": ["obstetrician", "anesthesiologist"],
+      "required_tools": ["uterotonics", "uterine_compression_sutures", "bakri_balloon", "blood_products"],
+      "preconditions": ["delivery_of_infant"]
+    },
+    {
+      "id": "conversion_to_hysterectomy",
+      "name": "Peripartum Hysterectomy",
+      "phase": "complication",
+      "mandatory": false,
+      "optional": true,
+      "safety_critical": true,
+      "actors": ["obstetrician", "assistant", "anesthesiologist"],
+      "required_tools": ["vascular_clamps", "sutures", "open_surgery_tray", "blood_products"],
+      "preconditions": ["postpartum_hemorrhage_control"]
+    }
+  ],
+  "edges": [
+    { "from": "who_sign_in", "to": "regional_anesthesia", "type": "sequential" },
+    { "from": "regional_anesthesia", "to": "patient_positioning", "type": "sequential" },
+    { "from": "patient_positioning", "to": "antibiotic_prophylaxis", "type": "sequential" },
+    { "from": "antibiotic_prophylaxis", "to": "who_time_out", "type": "sequential" },
+    { "from": "who_time_out", "to": "skin_preparation", "type": "sequential" },
+    { "from": "skin_preparation", "to": "skin_incision", "type": "sequential" },
+    { "from": "skin_incision", "to": "abdominal_wall_opening", "type": "sequential" },
+    { "from": "abdominal_wall_opening", "to": "bladder_flap_creation", "type": "sequential" },
+    { "from": "bladder_flap_creation", "to": "uterine_incision", "type": "sequential" },
+    { "from": "uterine_incision", "to": "delivery_of_infant", "type": "sequential" },
+    { "from": "delivery_of_infant", "to": "cord_clamping_and_cutting", "type": "sequential" },
+    { "from": "delivery_of_infant", "to": "uterotonic_administration", "type": "sequential" },
+    { "from": "cord_clamping_and_cutting", "to": "placental_removal", "type": "sequential" },
+    { "from": "uterotonic_administration", "to": "placental_removal", "type": "sequential" },
+    { "from": "placental_removal", "to": "uterine_repair", "type": "sequential" },
+    { "from": "uterine_repair", "to": "hemostasis_check", "type": "sequential" },
+    { "from": "hemostasis_check", "to": "abdominal_layer_closure", "type": "sequential" },
+    { "from": "abdominal_layer_closure", "to": "skin_closure", "type": "sequential" },
+    { "from": "skin_closure", "to": "who_sign_out", "type": "sequential" },
+    { "from": "delivery_of_infant", "to": "postpartum_hemorrhage_control", "type": "conditional" },
+    { "from": "uterine_repair", "to": "postpartum_hemorrhage_control", "type": "conditional" },
+    { "from": "postpartum_hemorrhage_control", "to": "conversion_to_hysterectomy", "type": "conditional" },
+    { "from": "postpartum_hemorrhage_control", "to": "hemostasis_check", "type": "conditional" },
+    { "from": "conversion_to_hysterectomy", "to": "hemostasis_check", "type": "sequential" }
+  ]
+}
+
