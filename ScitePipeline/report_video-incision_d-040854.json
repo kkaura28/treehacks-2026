@@ -1,0 +1,272 @@
+{
+  "procedure_run_id": "video-incision_d-040854",
+  "procedure_id": "incision_drainage_abscess",
+  "procedure_name": "Incision and Drainage of Abscess",
+  "compliance_score": 0.0769,
+  "total_expected": 13,
+  "total_observed": 3,
+  "confirmed_count": 12,
+  "mitigated_count": 0,
+  "review_count": 0,
+  "confirmed_deviations": [
+    {
+      "node_id": "patient_identification",
+      "node_name": "Patient Identification and Consent",
+      "phase": "checklist",
+      "deviation_type": "skipped_safety",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Patient Identification and Consent' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses several risks of complications, such as nerve injury (inferior alveolar, lingual, and mental nerves) and displacement of the roots into the maxillary sinus. 15  In particular, dental surgery in older patients carries a high risk of the\"\n    Source: Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n  - [NLI confidence: 99%] \"This ratio was several times that for conventional open cholecystectomy and suggests the need for more specific skill (training) to prevent bile duct injury. Bile duct injury often occurred in confusion with regard to the anatomy of the bile duct . Therefore attention must be foc\"\n    Source: Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)\n  - [NLI confidence: 98%] \"Major complications include viscus injury and vessel injuries [6,. Although these listed injuries are inherent risks associated with surgeries, whether traditional or minimally invasive, the nature of not directly having access to the viscus in minimally invasive surgery, unlike \"\n    Source: Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 67%] \"The first axiom of common bile duct injury is prevention. For prevention, we recommend the following suggestions adapted from Hunter  and our own experiences (Figure).\"\n    Source: Common bile duct injury after laparoscopic cholecystectomy: Report of two cases (DOI: 10.7556/jaoa.1997.97.4.233)\n  - [NLI confidence: 54%] \"The rationale for stopping accrual of patients after enrolling only 115 patients occurred because of the purchase of a digital fluoroscopy unit by our hospital. Having shown that static roentgenograms were time-consuming and expensive, we began performing routine fluoroscopic cho\"\n    Source: Letters to the editor (DOI: 10.1007/bf01659147)",
+      "citations": [
+        "[scite: 1181696 supporting, 251692 contrasting]",
+        "Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117)",
+        "Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)",
+        "Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299)",
+        "Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)",
+        "SURVEY OF INCIDENCE, INDICATIONS, COMPLICATIONS AND MANAGEMENT OF COMPLICATIONS  (DOI: 10.21608/amj.2022.245214)",
+        "Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "allergy_check",
+      "node_name": "Allergy Check (Anesthetic and Antibiotic Allergies)",
+      "phase": "checklist",
+      "deviation_type": "skipped_safety",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Allergy Check (Anesthetic and Antibiotic Allergies)' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses several risks of complications, such as nerve injury (inferior alveolar, lingual, and mental nerves) and displacement of the roots into the maxillary sinus. 15  In particular, dental surgery in older patients carries a high risk of the\"\n    Source: Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n  - [NLI confidence: 99%] \"This ratio was several times that for conventional open cholecystectomy and suggests the need for more specific skill (training) to prevent bile duct injury. Bile duct injury often occurred in confusion with regard to the anatomy of the bile duct . Therefore attention must be foc\"\n    Source: Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)\n  - [NLI confidence: 98%] \"Major complications include viscus injury and vessel injuries [6,. Although these listed injuries are inherent risks associated with surgeries, whether traditional or minimally invasive, the nature of not directly having access to the viscus in minimally invasive surgery, unlike \"\n    Source: Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 67%] \"The first axiom of common bile duct injury is prevention. For prevention, we recommend the following suggestions adapted from Hunter  and our own experiences (Figure).\"\n    Source: Common bile duct injury after laparoscopic cholecystectomy: Report of two cases (DOI: 10.7556/jaoa.1997.97.4.233)\n  - [NLI confidence: 54%] \"The rationale for stopping accrual of patients after enrolling only 115 patients occurred because of the purchase of a digital fluoroscopy unit by our hospital. Having shown that static roentgenograms were time-consuming and expensive, we began performing routine fluoroscopic cho\"\n    Source: Letters to the editor (DOI: 10.1007/bf01659147)",
+      "citations": [
+        "[scite: 1181696 supporting, 251692 contrasting]",
+        "Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117)",
+        "Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)",
+        "Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299)",
+        "Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)",
+        "SURVEY OF INCIDENCE, INDICATIONS, COMPLICATIONS AND MANAGEMENT OF COMPLICATIONS  (DOI: 10.21608/amj.2022.245214)",
+        "Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "equipment_preparation",
+      "node_name": "Equipment and Supplies Preparation",
+      "phase": "setup",
+      "deviation_type": "missing",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Equipment and Supplies Preparation' (missing)\n  Citation landscape: 237399 supporting, 47842 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with incision and drainage only. Periapical abscess complicated by systemic symptoms, cellulitis, or immunocompromised patients should receive antibiotics in addition to drainage [  ]. Antibiotic therapy for dental infections is ne\"\n    Source: Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)\n  - [NLI confidence: 94%] \"(The dictum has been to perform esophagectomy when T1b occurs.) Nelson and colleagues  have compared outcomes of patients treated with EMR alone against outcomes of patients treated with esophagectomy (with or without previous EMR). They have attempted to provide a scoring system\"\n    Source: Saving the esophagus: At what cost? (DOI: 10.1016/j.jtcvs.2018.03.013)\n  - [NLI confidence: 92%] \"Although an 8.5% risk of this outcome in patients with symptoms might plausibly be justified, a 6.9% risk in patients with no symptoms seems high compared with societal guideline based safety benchmarks 3. Specifically, this is more than double the risk of what can be expected in\"\n    Source: Therapeutic ultrasound during carotid endarterectomy (DOI: 10.1136/bmj.r385)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 67%] \"The International Classification of Functioning, Disability, and Health (ICF) defines \"disability\" as a holistic term encompassing impairments, limitations in activities, and restrictions in participation (1). Individuals with disabilities tend to have suboptimal health outcomes \"\n    Source: Editorial: How best to deliver disability care in a cost-effective way: improvin (DOI: 10.3389/fresc.2023.1307810)",
+      "citations": [
+        "[scite: 237399 supporting, 47842 contrasting]",
+        "Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1)",
+        "Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)",
+        "Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)",
+        "Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)",
+        "Effective management of a retropharyngeal abscess using endoscopic complete-laye (DOI: 10.1055/a-2197-9172)",
+        "Therapeutic ultrasound during carotid endarterectomy (DOI: 10.1136/bmj.r385)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": false
+    },
+    {
+      "node_id": "site_marking",
+      "node_name": "Site Identification and Marking",
+      "phase": "checklist",
+      "deviation_type": "skipped_safety",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Site Identification and Marking' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses several risks of complications, such as nerve injury (inferior alveolar, lingual, and mental nerves) and displacement of the roots into the maxillary sinus. 15  In particular, dental surgery in older patients carries a high risk of the\"\n    Source: Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n  - [NLI confidence: 99%] \"This ratio was several times that for conventional open cholecystectomy and suggests the need for more specific skill (training) to prevent bile duct injury. Bile duct injury often occurred in confusion with regard to the anatomy of the bile duct . Therefore attention must be foc\"\n    Source: Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)\n  - [NLI confidence: 98%] \"Major complications include viscus injury and vessel injuries [6,. Although these listed injuries are inherent risks associated with surgeries, whether traditional or minimally invasive, the nature of not directly having access to the viscus in minimally invasive surgery, unlike \"\n    Source: Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 67%] \"The first axiom of common bile duct injury is prevention. For prevention, we recommend the following suggestions adapted from Hunter  and our own experiences (Figure).\"\n    Source: Common bile duct injury after laparoscopic cholecystectomy: Report of two cases (DOI: 10.7556/jaoa.1997.97.4.233)\n  - [NLI confidence: 54%] \"The rationale for stopping accrual of patients after enrolling only 115 patients occurred because of the purchase of a digital fluoroscopy unit by our hospital. Having shown that static roentgenograms were time-consuming and expensive, we began performing routine fluoroscopic cho\"\n    Source: Letters to the editor (DOI: 10.1007/bf01659147)",
+      "citations": [
+        "[scite: 1181696 supporting, 251692 contrasting]",
+        "Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117)",
+        "Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)",
+        "Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299)",
+        "Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)",
+        "SURVEY OF INCIDENCE, INDICATIONS, COMPLICATIONS AND MANAGEMENT OF COMPLICATIONS  (DOI: 10.21608/amj.2022.245214)",
+        "Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "sterile_preparation",
+      "node_name": "Sterile Skin Preparation",
+      "phase": "setup",
+      "deviation_type": "skipped_safety",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Sterile Skin Preparation' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"This ratio was several times that for conventional open cholecystectomy and suggests the need for more specific skill (training) to prevent bile duct injury. Bile duct injury often occurred in confusion with regard to the anatomy of the bile duct . Therefore attention must be foc\"\n    Source: Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)\n  - [NLI confidence: 94%] \"At the time of submission for the publication, 2084 centres have expressed interest in participation, across 134 countries. With consideration to recent figures provided by previous collaborative studies on cholecystectomy,  a sample of approximately 15 000 patients is anticipate\"\n    Source: Global evaluation and outcomes of cholecystectomy: protocol for a multicentre, i (DOI: 10.1136/bmjopen-2023-079599)\n  - [NLI confidence: 92%] \"With consideration to recent figures provided by previous collaborative studies on cholecystectomy,  a sample of approximately 15 000 patients is anticipated. The recent multisociety practice guidelines on prevention of bile duct injury  advised that a study adequately powered to\"\n    Source: Global evaluation and outcomes of cholecystectomy: protocol for a multicentre, i (DOI: 10.1136/bmjopen-2023-079599)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 67%] \"The first axiom of common bile duct injury is prevention. For prevention, we recommend the following suggestions adapted from Hunter  and our own experiences (Figure).\"\n    Source: Common bile duct injury after laparoscopic cholecystectomy: Report of two cases (DOI: 10.7556/jaoa.1997.97.4.233)\n  - [NLI confidence: 54%] \"The rationale for stopping accrual of patients after enrolling only 115 patients occurred because of the purchase of a digital fluoroscopy unit by our hospital. Having shown that static roentgenograms were time-consuming and expensive, we began performing routine fluoroscopic cho\"\n    Source: Letters to the editor (DOI: 10.1007/bf01659147)",
+      "citations": [
+        "[scite: 1181696 supporting, 251692 contrasting]",
+        "Contraction-relaxation coupling mechanism characterization in the thermodynamic  (DOI: 10.1152/japplphysiol.00593.2006)",
+        "MR appearance of cartilage defects of the knee: preliminary results of a spiral  (DOI: 10.1007/s00330-003-2068-4)",
+        "Isovolumic pressure-to-early rapid filling decay rate relation: model-based deri (DOI: 10.1152/japplphysiol.00617.2005)",
+        "Prospective study of microbial colonization of the nose and skin and infection o (DOI: 10.1128/jcm.26.7.1257-1262.1988)",
+        "The thermodynamics of diastole: kinematic modeling-based derivation of the P-V l (DOI: 10.1152/ajpheart.00814.2010)",
+        "Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "local_anesthesia",
+      "node_name": "Local Anesthesia Administration",
+      "phase": "setup",
+      "deviation_type": "missing",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Local Anesthesia Administration' (missing)\n  Citation landscape: 237406 supporting, 47844 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with incision and drainage only. Periapical abscess complicated by systemic symptoms, cellulitis, or immunocompromised patients should receive antibiotics in addition to drainage [  ]. Antibiotic therapy for dental infections is ne\"\n    Source: Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)\n  - [NLI confidence: 94%] \"Local anesthesia administration is the first and foremost pre-requisite for most procedures in dentistry .\"\n    Source: Effect of warming local anesthesia solutions before intraoral administration in  (DOI: 10.17245/jdapm.2020.20.4.187)\n  - [NLI confidence: 91%] \"Once diagnosed with perianal abscess, prompt incision and drainage should be performed. [  ,  ] The surgical method involves incising the abscess cavity and fistula to ensure adequate drainage of pus. Necrotic tissue within the abscess cavity sloughs off, and granulation tissue f\"\n    Source: Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 74%] \"These outcomes were consistent with a study done by AlHareky et al and Varadharaja et al who concluded that the child experienced lesser pain and discomfort when the vibration precooling device and TENS were used compared to traditional method of local anesthesia administration. \"\n    Source: Intercomparison of Efficacy of Transcutaneous Electrical Nerve Stimulation and P (DOI: 10.5005/jp-journals-10005-2807)\n  - [NLI confidence: 56%] \"The pain perceived during local anesthesia administration in children is mitigated by various methods such as application of topical anesthetics , camouflaging of the syringe [3,, distraction with audio-visual glasses , modification of the local anesthetic solution [6,7], and cou\"\n    Source: Effect of precooling on pain during local anesthesia administration in children: (DOI: 10.17245/jdapm.2020.20.3.119)",
+      "citations": [
+        "[scite: 237406 supporting, 47844 contrasting]",
+        "Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1)",
+        "Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)",
+        "Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)",
+        "Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)",
+        "Effective management of a retropharyngeal abscess using endoscopic complete-laye (DOI: 10.1055/a-2197-9172)",
+        "Is Virtual Reality Effective in Decreasing Pain during Clinical Procedures among (DOI: 10.4103/jiaps.jiaps_62_24)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": false
+    },
+    {
+      "node_id": "wound_irrigation",
+      "node_name": "Wound Irrigation with Saline",
+      "phase": "safety",
+      "deviation_type": "missing",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Wound Irrigation with Saline' (missing)\n  Citation landscape: 237401 supporting, 47842 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with incision and drainage only. Periapical abscess complicated by systemic symptoms, cellulitis, or immunocompromised patients should receive antibiotics in addition to drainage [  ]. Antibiotic therapy for dental infections is ne\"\n    Source: Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)\n  - [NLI confidence: 91%] \"Once diagnosed with perianal abscess, prompt incision and drainage should be performed. [  ,  ] The surgical method involves incising the abscess cavity and fistula to ensure adequate drainage of pus. Necrotic tissue within the abscess cavity sloughs off, and granulation tissue f\"\n    Source: Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)\n  - [NLI confidence: 88%] \"loculations, and packing following incision and . Initial therapy for abscesses associated with severe and/or disseminated disease or those that fail to respond to incision and drainage is often empiric and spectrum antimicrobial agents  . The goals of antimicrobial therapy are t\"\n    Source: Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 86%] \"Parcells et al compared the wound irrigation with saline, antiseptic solution and antibiotic (Imipenem) and found significantly lesser SSI in the antibiotic group.  Concerns have been raised in infection prevention and epidemiology control studies; wherein they recommend that the\"\n    Source: Role of intraoperative wound irrigation with antibiotics in reducing surgical si (DOI: 10.18203/2349-2902.isj20182780)\n  - [NLI confidence: 54%] \"The recovery of cytokines in WF by the NovaSwab and Schmohl methods was studied (Figure S1A ). Cell\u2010free WF collected by foam oblates  (50 \u03bcl) from all patients was added to the tip of swabs (\u2211\u2010Transwab [ n = 11] and eSwab [ n = 1]) and absorbed for 30 s; one swab was processed a\"\n    Source: A simplified method for monitoring cytokines in wound fluid (DOI: 10.1111/wrr.13053)",
+      "citations": [
+        "[scite: 237401 supporting, 47842 contrasting]",
+        "Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1)",
+        "Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)",
+        "Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)",
+        "Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)",
+        "Effective management of a retropharyngeal abscess using endoscopic complete-laye (DOI: 10.1055/a-2197-9172)",
+        "Endometrioma de parede abdominal (DOI: 10.1590/s0100-69912011000100008)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": false
+    },
+    {
+      "node_id": "wound_packing",
+      "node_name": "Wound Packing with Gauze Strip",
+      "phase": "closure",
+      "deviation_type": "skipped_safety",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Wound Packing with Gauze Strip' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses several risks of complications, such as nerve injury (inferior alveolar, lingual, and mental nerves) and displacement of the roots into the maxillary sinus. 15  In particular, dental surgery in older patients carries a high risk of the\"\n    Source: Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n  - [NLI confidence: 99%] \"This ratio was several times that for conventional open cholecystectomy and suggests the need for more specific skill (training) to prevent bile duct injury. Bile duct injury often occurred in confusion with regard to the anatomy of the bile duct . Therefore attention must be foc\"\n    Source: Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)\n  - [NLI confidence: 98%] \"Major complications include viscus injury and vessel injuries [6,. Although these listed injuries are inherent risks associated with surgeries, whether traditional or minimally invasive, the nature of not directly having access to the viscus in minimally invasive surgery, unlike \"\n    Source: Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 67%] \"The first axiom of common bile duct injury is prevention. For prevention, we recommend the following suggestions adapted from Hunter  and our own experiences (Figure).\"\n    Source: Common bile duct injury after laparoscopic cholecystectomy: Report of two cases (DOI: 10.7556/jaoa.1997.97.4.233)\n  - [NLI confidence: 54%] \"The rationale for stopping accrual of patients after enrolling only 115 patients occurred because of the purchase of a digital fluoroscopy unit by our hospital. Having shown that static roentgenograms were time-consuming and expensive, we began performing routine fluoroscopic cho\"\n    Source: Letters to the editor (DOI: 10.1007/bf01659147)",
+      "citations": [
+        "[scite: 1181696 supporting, 251692 contrasting]",
+        "Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117)",
+        "Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214)",
+        "Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299)",
+        "Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)",
+        "SURVEY OF INCIDENCE, INDICATIONS, COMPLICATIONS AND MANAGEMENT OF COMPLICATIONS  (DOI: 10.21608/amj.2022.245214)",
+        "Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "external_dressing",
+      "node_name": "External Dressing Application",
+      "phase": "closure",
+      "deviation_type": "missing",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'External Dressing Application' (missing)\n  Citation landscape: 237399 supporting, 47842 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with incision and drainage only. Periapical abscess complicated by systemic symptoms, cellulitis, or immunocompromised patients should receive antibiotics in addition to drainage [  ]. Antibiotic therapy for dental infections is ne\"\n    Source: Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)\n  - [NLI confidence: 94%] \"(The dictum has been to perform esophagectomy when T1b occurs.) Nelson and colleagues  have compared outcomes of patients treated with EMR alone against outcomes of patients treated with esophagectomy (with or without previous EMR). They have attempted to provide a scoring system\"\n    Source: Saving the esophagus: At what cost? (DOI: 10.1016/j.jtcvs.2018.03.013)\n  - [NLI confidence: 92%] \"Although an 8.5% risk of this outcome in patients with symptoms might plausibly be justified, a 6.9% risk in patients with no symptoms seems high compared with societal guideline based safety benchmarks 3. Specifically, this is more than double the risk of what can be expected in\"\n    Source: Therapeutic ultrasound during carotid endarterectomy (DOI: 10.1136/bmj.r385)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 67%] \"The International Classification of Functioning, Disability, and Health (ICF) defines \"disability\" as a holistic term encompassing impairments, limitations in activities, and restrictions in participation (1). Individuals with disabilities tend to have suboptimal health outcomes \"\n    Source: Editorial: How best to deliver disability care in a cost-effective way: improvin (DOI: 10.3389/fresc.2023.1307810)",
+      "citations": [
+        "[scite: 237399 supporting, 47842 contrasting]",
+        "Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1)",
+        "Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472)",
+        "Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)",
+        "Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)",
+        "Effective management of a retropharyngeal abscess using endoscopic complete-laye (DOI: 10.1055/a-2197-9172)",
+        "Therapeutic ultrasound during carotid endarterectomy (DOI: 10.1136/bmj.r385)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": false
+    },
+    {
+      "node_id": "discharge_instructions",
+      "node_name": "Discharge Instructions and Follow-Up",
+      "phase": "checklist",
+      "deviation_type": "skipped_safety",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Discharge Instructions and Follow-Up' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"This ratio was several times that for conventional open cholecystectomy and suggests the need for more specific skill (training) to prevent bile duct injury. Bile duct injury often occurred in confusion with regard to the anatomy of the bile duct . Therefore attention must be foc\"\n    Source: Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)\n  - [NLI confidence: 94%] \"At the time of submission for the publication, 2084 centres have expressed interest in participation, across 134 countries. With consideration to recent figures provided by previous collaborative studies on cholecystectomy,  a sample of approximately 15 000 patients is anticipate\"\n    Source: Global evaluation and outcomes of cholecystectomy: protocol for a multicentre, i (DOI: 10.1136/bmjopen-2023-079599)\n  - [NLI confidence: 92%] \"With consideration to recent figures provided by previous collaborative studies on cholecystectomy,  a sample of approximately 15 000 patients is anticipated. The recent multisociety practice guidelines on prevention of bile duct injury  advised that a study adequately powered to\"\n    Source: Global evaluation and outcomes of cholecystectomy: protocol for a multicentre, i (DOI: 10.1136/bmjopen-2023-079599)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 85%] \"In 2002, Ness et al reported the results of the PEACH study (n = 831).  The authors concluded that women with mild to moderate PID can be safely treated as outpatients; however, every patient received CDCrecommended treatment, discharge instructions, and follow-up. At about the s\"\n    Source: Compliance with the Centers for Disease Control and Prevention Recommendations f (DOI: 10.1197/j.aem.2003.11.016)\n  - [NLI confidence: 67%] \"The first axiom of common bile duct injury is prevention. For prevention, we recommend the following suggestions adapted from Hunter  and our own experiences (Figure).\"\n    Source: Common bile duct injury after laparoscopic cholecystectomy: Report of two cases (DOI: 10.7556/jaoa.1997.97.4.233)",
+      "citations": [
+        "[scite: 1181696 supporting, 251692 contrasting]",
+        "The role of professional development in adjunct nursing faculty identity salienc (DOI: 10.31274/etd-180810-4056)",
+        "Does Gender Influence Emergency Department Management and Outcomes in Geriatric  (DOI: 10.1016/j.jemermed.2007.11.060)",
+        "Improving the patient's experience in the emergency department during COVID-19 p (DOI: 10.52609/jmlph.v1i1.9)",
+        "Compliance with the Centers for Disease Control and Prevention Recommendations f (DOI: 10.1197/j.aem.2003.11.016)",
+        "The Impact of Standardizing Assessment and Treatment of Acute Asthma Exacerbatio (DOI: 10.24966/ets-8798/100013)",
+        "Evaluation of two training programs for laparoscopic cholecystectomy: Incidence  (DOI: 10.1007/bf00294415)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    },
+    {
+      "node_id": "loculation_breakdown",
+      "node_name": "Loculation Breakdown with Hemostat",
+      "phase": "exposure",
+      "deviation_type": "out_of_order",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Loculation Breakdown with Hemostat' (out_of_order)\n  Citation landscape: 1409970 supporting, 172778 contrasting\n  Snippets analyzed by NLI model: 10\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 96%] \"Wolf et al reporte d that the recurrence rate among patie nts who were treated for peritonsillar abscess with needle aspiration was statistically higher than that seen with incision and drainage.  Nielsen et al reported a case of mediastinitis resulting from peritonsillar abscess\"\n    Source: Peritonsillar Abscess: A Study of 724 Cases in Japan (DOI: 10.1177/014556130208100609)\n  - [NLI confidence: 91%] \"Once diagnosed with perianal abscess, prompt incision and drainage should be performed. [  ,  ] The surgical method involves incising the abscess cavity and fistula to ensure adequate drainage of pus. Necrotic tissue within the abscess cavity sloughs off, and granulation tissue f\"\n    Source: Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)\n  - [NLI confidence: 83%] \"Antibiotics after incision and drainage for uncomplicated skin abscesses: a clinical practice guideline.  We suggest TMP-SMX or clindamycin plus incision and drainage rather than incision and drainage alone (weak recommendation).\"\n    Source: BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 79%] \"The clipping is done to very lightly etherized flies at the same time they are \"sexed\" after eclosion. (Such clipping does not affect the mating propensities of the marked individuals; this has been shown before  and was rechecked by us with the material used here.) Flies are pla\"\n    Source: GENOTYPE FREQUENCY AND MATING SUCCESS IN THEWILLISTONISPECIES GROUP OFDROSOPHILA (DOI: 10.1111/j.1558-5646.1968.tb03466.x)\n  - [NLI confidence: 69%] \"9,10 Surprisingly, Nagar describes only 15 stitch abscesses in 2447 pediatric inguinal hernias and states: all patients responded well to incision and drainage.  Our incidence of stitch abscesses was seldom required incision and drainage.\"\n    Source: Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747)",
+      "citations": [
+        "[scite: 1409970 supporting, 172778 contrasting]",
+        "Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)",
+        "Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747)",
+        "BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318)",
+        "Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)",
+        "Peritonsillar Abscess: A Study of 724 Cases in Japan (DOI: 10.1177/014556130208100609)",
+        "An Intelligent Model for Facial Skin Colour Detection (DOI: 10.1155/2020/1519205)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": false
+    },
+    {
+      "node_id": "incision",
+      "node_name": "Incision Over Abscess (Along Skin Lines)",
+      "phase": "exposure",
+      "deviation_type": "out_of_order",
+      "verdict": "confirmed",
+      "evidence_summary": "Evidence analysis for: 'Incision Over Abscess (Along Skin Lines)' (out_of_order)\n  Citation landscape: 1409970 supporting, 172778 contrasting\n  Snippets analyzed by NLI model: 10\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 96%] \"Wolf et al reporte d that the recurrence rate among patie nts who were treated for peritonsillar abscess with needle aspiration was statistically higher than that seen with incision and drainage.  Nielsen et al reported a case of mediastinitis resulting from peritonsillar abscess\"\n    Source: Peritonsillar Abscess: A Study of 724 Cases in Japan (DOI: 10.1177/014556130208100609)\n  - [NLI confidence: 91%] \"Once diagnosed with perianal abscess, prompt incision and drainage should be performed. [  ,  ] The surgical method involves incising the abscess cavity and fistula to ensure adequate drainage of pus. Necrotic tissue within the abscess cavity sloughs off, and granulation tissue f\"\n    Source: Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)\n  - [NLI confidence: 83%] \"Antibiotics after incision and drainage for uncomplicated skin abscesses: a clinical practice guideline.  We suggest TMP-SMX or clindamycin plus incision and drainage rather than incision and drainage alone (weak recommendation).\"\n    Source: BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318)\n\nEvidence this deviation may be acceptable:\n  - [NLI confidence: 79%] \"The clipping is done to very lightly etherized flies at the same time they are \"sexed\" after eclosion. (Such clipping does not affect the mating propensities of the marked individuals; this has been shown before  and was rechecked by us with the material used here.) Flies are pla\"\n    Source: GENOTYPE FREQUENCY AND MATING SUCCESS IN THEWILLISTONISPECIES GROUP OFDROSOPHILA (DOI: 10.1111/j.1558-5646.1968.tb03466.x)\n  - [NLI confidence: 69%] \"9,10 Surprisingly, Nagar describes only 15 stitch abscesses in 2447 pediatric inguinal hernias and states: all patients responded well to incision and drainage.  Our incidence of stitch abscesses was seldom required incision and drainage.\"\n    Source: Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747)",
+      "citations": [
+        "[scite: 1409970 supporting, 172778 contrasting]",
+        "Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347)",
+        "Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747)",
+        "BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318)",
+        "Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)",
+        "Peritonsillar Abscess: A Study of 724 Cases in Japan (DOI: 10.1177/014556130208100609)",
+        "An Intelligent Model for Facial Skin Colour Detection (DOI: 10.1155/2020/1519205)"
+      ],
+      "original_mandatory": true,
+      "original_safety_critical": true
+    }
+  ],
+  "mitigated_deviations": [],
+  "review_deviations": [],
+  "report_text": "============================================================\nPOST-OPERATIVE COMPLIANCE REPORT\nProcedure: Incision and Drainage of Abscess\nRun ID: video-incision_d-040854\nGenerated: 2026-02-14 12:08 UTC\nCompliance Score: 8%\n============================================================\n\nSteps expected: 13\nSteps observed: 3\nDeviations found: 12\n  Confirmed: 12\n  Mitigated: 0\n  Needs review: 0\n\n------------------------------------------------------------\nCONFIRMED DEVIATIONS\n------------------------------------------------------------\n  [CONFIRMED] Patient Identification and Consent\n    Type: skipped_safety\n    Phase: checklist\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Patient Identification and Consent' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses s...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n\n  [CONFIRMED] Allergy Check (Anesthetic and Antibiotic Allergies)\n    Type: skipped_safety\n    Phase: checklist\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Allergy Check (Anesthetic and Antibiotic Allergies)' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of th...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n\n  [CONFIRMED] Equipment and Supplies Preparation\n    Type: missing\n    Phase: setup\n    Safety-critical: False\n    Evidence: Evidence analysis for: 'Equipment and Supplies Preparation' (missing)\n  Citation landscape: 237399 supporting, 47842 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with i...\n    Citations: [scite: 237399 supporting, 47842 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)\n\n  [CONFIRMED] Site Identification and Marking\n    Type: skipped_safety\n    Phase: checklist\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Site Identification and Marking' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses seve...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n\n  [CONFIRMED] Sterile Skin Preparation\n    Type: skipped_safety\n    Phase: setup\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Sterile Skin Preparation' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"This ratio was several times that for conventional open ...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], Contraction-relaxation coupling mechanism characterization in the thermodynamic  (DOI: 10.1152/japplphysiol.00593.2006), MR appearance of cartilage defects of the knee: preliminary results of a spiral  (DOI: 10.1007/s00330-003-2068-4), Isovolumic pressure-to-early rapid filling decay rate relation: model-based deri (DOI: 10.1152/japplphysiol.00617.2005), Prospective study of microbial colonization of the nose and skin and infection o (DOI: 10.1128/jcm.26.7.1257-1262.1988)\n\n  [CONFIRMED] Local Anesthesia Administration\n    Type: missing\n    Phase: setup\n    Safety-critical: False\n    Evidence: Evidence analysis for: 'Local Anesthesia Administration' (missing)\n  Citation landscape: 237406 supporting, 47844 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with inci...\n    Citations: [scite: 237406 supporting, 47844 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)\n\n  [CONFIRMED] Wound Irrigation with Saline\n    Type: missing\n    Phase: safety\n    Safety-critical: False\n    Evidence: Evidence analysis for: 'Wound Irrigation with Saline' (missing)\n  Citation landscape: 237401 supporting, 47842 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with incisio...\n    Citations: [scite: 237401 supporting, 47842 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)\n\n  [CONFIRMED] Wound Packing with Gauze Strip\n    Type: skipped_safety\n    Phase: closure\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Wound Packing with Gauze Strip' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses sever...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n\n  [CONFIRMED] External Dressing Application\n    Type: missing\n    Phase: closure\n    Safety-critical: False\n    Evidence: Evidence analysis for: 'External Dressing Application' (missing)\n  Citation landscape: 237399 supporting, 47842 contrasting\n  Snippets analyzed by NLI model: 13\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 97%] \"An uncomplicated periapical abscess is treatable with incisi...\n    Citations: [scite: 237399 supporting, 47842 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)\n\n  [CONFIRMED] Discharge Instructions and Follow-Up\n    Type: skipped_safety\n    Phase: checklist\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Discharge Instructions and Follow-Up' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"This ratio was several times that for conven...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], The role of professional development in adjunct nursing faculty identity salienc (DOI: 10.31274/etd-180810-4056), Does Gender Influence Emergency Department Management and Outcomes in Geriatric  (DOI: 10.1016/j.jemermed.2007.11.060), Improving the patient's experience in the emergency department during COVID-19 p (DOI: 10.52609/jmlph.v1i1.9), Compliance with the Centers for Disease Control and Prevention Recommendations f (DOI: 10.1197/j.aem.2003.11.016)\n\n  [CONFIRMED] Loculation Breakdown with Hemostat\n    Type: out_of_order\n    Phase: exposure\n    Safety-critical: False\n    Evidence: Evidence analysis for: 'Loculation Breakdown with Hemostat' (out_of_order)\n  Citation landscape: 1409970 supporting, 172778 contrasting\n  Snippets analyzed by NLI model: 10\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 96%] \"Wolf et al reporte d that the recurrence rate am...\n    Citations: [scite: 1409970 supporting, 172778 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)\n\n  [CONFIRMED] Incision Over Abscess (Along Skin Lines)\n    Type: out_of_order\n    Phase: exposure\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Incision Over Abscess (Along Skin Lines)' (out_of_order)\n  Citation landscape: 1409970 supporting, 172778 contrasting\n  Snippets analyzed by NLI model: 10\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 96%] \"Wolf et al reporte d that the recurrence r...\n    Citations: [scite: 1409970 supporting, 172778 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)\n\n============================================================",
+  "created_at": "2026-02-14 12:08:54.604629",
+  "source": "video",
+  "gemini_notes": "The video is a demonstration of an incision and drainage procedure on a surgical model. As such, it focuses on the core mechanical steps of the procedure. Pre-procedural steps like patient prep, anesthesia, and post-procedural steps like irrigation, packing, and dressing are not shown.",
+  "video_path": "surgery_video.mp4",
+  "gemini_model": "gemini-2.5-pro",
+  "detected_events": [
+    {
+      "node_id": "incision",
+      "timestamp_seconds": 28,
+      "confidence": 0.95,
+      "observation": "A surgeon uses forceps to tent the skin and makes a linear incision with a scalpel into the simulated abscess.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "loculation_breakdown",
+      "timestamp_seconds": 44,
+      "confidence": 0.95,
+      "observation": "A hemostat is inserted into the incision and spread open to break up internal loculations within the abscess cavity.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "drainage_expression",
+      "timestamp_seconds": 47,
+      "confidence": 0.95,
+      "observation": "Simulated purulent material is expressed from the incision using the hemostat and manual pressure on the surrounding tissue.",
+      "source": "gemini"
+    }
+  ]
+}

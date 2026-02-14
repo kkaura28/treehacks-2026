@@ -1,0 +1,70 @@
+============================================================
+POST-OPERATIVE COMPLIANCE REPORT
+Procedure: Incision and Drainage of Abscess
+Run ID: video-incision_d-074803
+Generated: 2026-02-14 15:48 UTC
+Compliance Score: 69%
+============================================================
+
+Steps expected: 13
+Steps observed: 13
+Deviations found: 4
+  Confirmed: 4
+  Mitigated: 0
+  Needs review: 0
+
+------------------------------------------------------------
+CONFIRMED DEVIATIONS
+------------------------------------------------------------
+  [CONFIRMED] Allergy Check (Anesthetic and Antibiotic Allergies)
+    Type: skipped_safety
+    Phase: checklist
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Allergy Check (Anesthetic and Antibiotic Allergies)' (skipped_safety)
+  Citation landscape: 1181732 supporting, 251696 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "In addition, extraction of th...
+    Citations: [scite: 1181732 supporting, 251696 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)
+
+  [CONFIRMED] Site Identification and Marking
+    Type: skipped_safety
+    Phase: checklist
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Site Identification and Marking' (skipped_safety)
+  Citation landscape: 1181731 supporting, 251696 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "In addition, extraction of these roots poses seve...
+    Citations: [scite: 1181731 supporting, 251696 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)
+
+  [CONFIRMED] Equipment and Supplies Preparation
+    Type: out_of_order
+    Phase: setup
+    Safety-critical: False
+    Evidence: Evidence analysis for: 'Equipment and Supplies Preparation' (out_of_order)
+  Citation landscape: 1409992 supporting, 172780 contrasting
+  Snippets analyzed by NLI model: 10
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 96%] "Wolf et al reporte d that the recurrence rate am...
+    Citations: [scite: 1409992 supporting, 172780 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)
+
+  [CONFIRMED] Sterile Skin Preparation
+    Type: out_of_order
+    Phase: setup
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Sterile Skin Preparation' (out_of_order)
+  Citation landscape: 1409992 supporting, 172780 contrasting
+  Snippets analyzed by NLI model: 10
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 96%] "Wolf et al reporte d that the recurrence rate among patie ...
+    Citations: [scite: 1409992 supporting, 172780 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)
+
+============================================================
+
+GEMINI OBSERVATIONS:
+The video is a comprehensive educational guide. It clearly demonstrates the standard sequence of incision and drainage. Site marking with a pen was not explicitly shown, only cleaning. Allergy check was implied in the consent/history section but not explicitly visualized as a checklist item.

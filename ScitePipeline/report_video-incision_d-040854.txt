@@ -1,0 +1,166 @@
+============================================================
+POST-OPERATIVE COMPLIANCE REPORT
+Procedure: Incision and Drainage of Abscess
+Run ID: video-incision_d-040854
+Generated: 2026-02-14 12:08 UTC
+Compliance Score: 8%
+============================================================
+
+Steps expected: 13
+Steps observed: 3
+Deviations found: 12
+  Confirmed: 12
+  Mitigated: 0
+  Needs review: 0
+
+------------------------------------------------------------
+CONFIRMED DEVIATIONS
+------------------------------------------------------------
+  [CONFIRMED] Patient Identification and Consent
+    Type: skipped_safety
+    Phase: checklist
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Patient Identification and Consent' (skipped_safety)
+  Citation landscape: 1181696 supporting, 251692 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "In addition, extraction of these roots poses s...
+    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)
+
+  [CONFIRMED] Allergy Check (Anesthetic and Antibiotic Allergies)
+    Type: skipped_safety
+    Phase: checklist
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Allergy Check (Anesthetic and Antibiotic Allergies)' (skipped_safety)
+  Citation landscape: 1181696 supporting, 251692 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "In addition, extraction of th...
+    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)
+
+  [CONFIRMED] Equipment and Supplies Preparation
+    Type: missing
+    Phase: setup
+    Safety-critical: False
+    Evidence: Evidence analysis for: 'Equipment and Supplies Preparation' (missing)
+  Citation landscape: 237399 supporting, 47842 contrasting
+  Snippets analyzed by NLI model: 13
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 97%] "An uncomplicated periapical abscess is treatable with i...
+    Citations: [scite: 237399 supporting, 47842 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)
+
+  [CONFIRMED] Site Identification and Marking
+    Type: skipped_safety
+    Phase: checklist
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Site Identification and Marking' (skipped_safety)
+  Citation landscape: 1181696 supporting, 251692 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "In addition, extraction of these roots poses seve...
+    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)
+
+  [CONFIRMED] Sterile Skin Preparation
+    Type: skipped_safety
+    Phase: setup
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Sterile Skin Preparation' (skipped_safety)
+  Citation landscape: 1181696 supporting, 251692 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "This ratio was several times that for conventional open ...
+    Citations: [scite: 1181696 supporting, 251692 contrasting], Contraction-relaxation coupling mechanism characterization in the thermodynamic  (DOI: 10.1152/japplphysiol.00593.2006), MR appearance of cartilage defects of the knee: preliminary results of a spiral  (DOI: 10.1007/s00330-003-2068-4), Isovolumic pressure-to-early rapid filling decay rate relation: model-based deri (DOI: 10.1152/japplphysiol.00617.2005), Prospective study of microbial colonization of the nose and skin and infection o (DOI: 10.1128/jcm.26.7.1257-1262.1988)
+
+  [CONFIRMED] Local Anesthesia Administration
+    Type: missing
+    Phase: setup
+    Safety-critical: False
+    Evidence: Evidence analysis for: 'Local Anesthesia Administration' (missing)
+  Citation landscape: 237406 supporting, 47844 contrasting
+  Snippets analyzed by NLI model: 13
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 97%] "An uncomplicated periapical abscess is treatable with inci...
+    Citations: [scite: 237406 supporting, 47844 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)
+
+  [CONFIRMED] Wound Irrigation with Saline
+    Type: missing
+    Phase: safety
+    Safety-critical: False
+    Evidence: Evidence analysis for: 'Wound Irrigation with Saline' (missing)
+  Citation landscape: 237401 supporting, 47842 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 97%] "An uncomplicated periapical abscess is treatable with incisio...
+    Citations: [scite: 237401 supporting, 47842 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)
+
+  [CONFIRMED] Wound Packing with Gauze Strip
+    Type: skipped_safety
+    Phase: closure
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Wound Packing with Gauze Strip' (skipped_safety)
+  Citation landscape: 1181696 supporting, 251692 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "In addition, extraction of these roots poses sever...
+    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)
+
+  [CONFIRMED] External Dressing Application
+    Type: missing
+    Phase: closure
+    Safety-critical: False
+    Evidence: Evidence analysis for: 'External Dressing Application' (missing)
+  Citation landscape: 237399 supporting, 47842 contrasting
+  Snippets analyzed by NLI model: 13
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 97%] "An uncomplicated periapical abscess is treatable with incisi...
+    Citations: [scite: 237399 supporting, 47842 contrasting], Extensive thigh pyomyositis secondary to cystic fistulae due to anaerobic-bacter (DOI: 10.21203/rs.3.rs-3848075/v1), Bacterial Profile, Antimicrobial Susceptibility Pattern, and Associated Factors  (DOI: 10.1155/2022/3463472), Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Multiple Pyaemic Abscess-An Unusual Presentation in Neonate: Case Report (DOI: 10.31142/ijtsrd18389)
+
+  [CONFIRMED] Discharge Instructions and Follow-Up
+    Type: skipped_safety
+    Phase: checklist
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Discharge Instructions and Follow-Up' (skipped_safety)
+  Citation landscape: 1181696 supporting, 251692 contrasting
+  Snippets analyzed by NLI model: 12
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 99%] "This ratio was several times that for conven...
+    Citations: [scite: 1181696 supporting, 251692 contrasting], The role of professional development in adjunct nursing faculty identity salienc (DOI: 10.31274/etd-180810-4056), Does Gender Influence Emergency Department Management and Outcomes in Geriatric  (DOI: 10.1016/j.jemermed.2007.11.060), Improving the patient's experience in the emergency department during COVID-19 p (DOI: 10.52609/jmlph.v1i1.9), Compliance with the Centers for Disease Control and Prevention Recommendations f (DOI: 10.1197/j.aem.2003.11.016)
+
+  [CONFIRMED] Loculation Breakdown with Hemostat
+    Type: out_of_order
+    Phase: exposure
+    Safety-critical: False
+    Evidence: Evidence analysis for: 'Loculation Breakdown with Hemostat' (out_of_order)
+  Citation landscape: 1409970 supporting, 172778 contrasting
+  Snippets analyzed by NLI model: 10
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 96%] "Wolf et al reporte d that the recurrence rate am...
+    Citations: [scite: 1409970 supporting, 172778 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)
+
+  [CONFIRMED] Incision Over Abscess (Along Skin Lines)
+    Type: out_of_order
+    Phase: exposure
+    Safety-critical: True
+    Evidence: Evidence analysis for: 'Incision Over Abscess (Along Skin Lines)' (out_of_order)
+  Citation landscape: 1409970 supporting, 172778 contrasting
+  Snippets analyzed by NLI model: 10
+
+Evidence this deviation is clinically significant:
+  - [NLI confidence: 96%] "Wolf et al reporte d that the recurrence r...
+    Citations: [scite: 1409970 supporting, 172778 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)
+
+============================================================
+
+GEMINI OBSERVATIONS:
+The procedure is a demonstration performed on a surgical simulation model. Key steps such as sterile preparation, local anesthesia, irrigation, packing, and dressing are not shown.
