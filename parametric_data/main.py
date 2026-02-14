@@ -4,8 +4,10 @@
 import argparse
 import glob
 import os
+import shutil
 import subprocess
 import sys
+import tempfile
 
 
 def main():
@@ -14,6 +16,8 @@ def main():
                         help="1 = full pipeline (video); 2 = FoundationPose (scene_dir); 3 = hand joints (video)")
     parser.add_argument("path", type=str, nargs="?", default=None,
                         help="Video path (option 1 or 3) or scene directory (option 2)")
+    parser.add_argument("--long_way", action="store_true",
+                        help="(Option 2 only) Run FoundationPose on consecutive two-frame windows for the full sequence")
     args = parser.parse_args()
 
     if args.option is None:
@@ -67,20 +71,84 @@ def main():
         if not os.path.isfile(run_demo):
             print(f"Error: run_demo.py not found at {run_demo}", file=sys.stderr)
             sys.exit(1)
-        result = subprocess.run(
-            [
-                sys.executable,
-                run_demo,
+
+        if args.long_way:
+            color_files = sorted(glob.glob(os.path.join(scene_dir, "rgb", "*.png")))
+            if len(color_files) < 2:
+                print(f"Error: Need at least 2 frames in {scene_dir}/rgb for --long_way", file=sys.stderr)
+                sys.exit(1)
+            depth_dir = os.path.join(scene_dir, "depth")
+            masks_dir = os.path.join(scene_dir, "masks")
+            cam_K_path = os.path.join(scene_dir, "cam_K.txt")
+            if not os.path.isfile(cam_K_path):
+                print(f"Error: cam_K.txt not found in {scene_dir}", file=sys.stderr)
+                sys.exit(1)
+            os.makedirs(debug_dir, exist_ok=True)
+            os.makedirs(os.path.join(debug_dir, "ob_in_cam"), exist_ok=True)
+            fp_cwd = os.path.join(repo_root, "FoundationPose")
+            demo_args = [
+                sys.executable, run_demo,
                 "--mesh_file", mesh_file,
-                "--test_scene_dir", scene_dir,
                 "--est_refine_iter", "10",
                 "--track_refine_iter", "10",
-                "--debug", "2",
-                "--debug_dir", debug_dir,
-            ],
-            cwd=os.path.join(repo_root, "FoundationPose"),
-        )
-        sys.exit(result.returncode)
+                "--debug", "0",
+            ]
+            for i in range(len(color_files) - 1):
+                tmp = tempfile.mkdtemp(prefix="fp_long_way_")
+                try:
+                    for sub in ("rgb", "depth", "masks"):
+                        os.makedirs(os.path.join(tmp, sub), exist_ok=True)
+                    shutil.copy(cam_K_path, os.path.join(tmp, "cam_K.txt"))
+                    for j, local_name in enumerate(("000000.png", "000001.png")):
+                        src_rgb = color_files[i + j]
+                        base = os.path.basename(src_rgb)
+                        shutil.copy2(src_rgb, os.path.join(tmp, "rgb", local_name))
+                        src_depth = os.path.join(depth_dir, base)
+                        if os.path.isfile(src_depth):
+                            shutil.copy2(src_depth, os.path.join(tmp, "depth", local_name))
+                        src_mask = os.path.join(masks_dir, base)
+                        if os.path.isfile(src_mask):
+                            shutil.copy2(src_mask, os.path.join(tmp, "masks", local_name))
+                    tmp_debug = os.path.join(tmp, "output")
+                    result = subprocess.run(
+                        demo_args + ["--test_scene_dir", tmp, "--debug_dir", tmp_debug],
+                        cwd=fp_cwd,
+                    )
+                    if result.returncode != 0:
+                        print(f"Error: run_demo failed on frames {i}–{i+1}", file=sys.stderr)
+                        shutil.rmtree(tmp, ignore_errors=True)
+                        sys.exit(result.returncode)
+                    ob_dir = os.path.join(tmp_debug, "ob_in_cam")
+                    if i == 0:
+                        src_0 = os.path.join(ob_dir, "000000.txt")
+                        if os.path.isfile(src_0):
+                            frame0_base = os.path.basename(color_files[0]).replace(".png", ".txt")
+                            shutil.copy2(src_0, os.path.join(debug_dir, "ob_in_cam", frame0_base))
+                    src_1 = os.path.join(ob_dir, "000001.txt")
+                    if os.path.isfile(src_1):
+                        frame1_base = os.path.basename(color_files[i + 1]).replace(".png", ".txt")
+                        shutil.copy2(src_1, os.path.join(debug_dir, "ob_in_cam", frame1_base))
+                finally:
+                    shutil.rmtree(tmp, ignore_errors=True)
+                if (i + 1) % 50 == 0 or i == 0:
+                    print(f"Long-way: finished frame pair {i+1}/{len(color_files)-1}")
+            print(f"Long-way: saved poses to {debug_dir}/ob_in_cam/")
+            sys.exit(0)
+        else:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    run_demo,
+                    "--mesh_file", mesh_file,
+                    "--test_scene_dir", scene_dir,
+                    "--est_refine_iter", "10",
+                    "--track_refine_iter", "10",
+                    "--debug", "2",
+                    "--debug_dir", debug_dir,
+                ],
+                cwd=os.path.join(repo_root, "FoundationPose"),
+            )
+            sys.exit(result.returncode)
 
     # option == 1: full pipeline
     if not args.path:
