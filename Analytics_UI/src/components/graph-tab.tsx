@@ -146,12 +146,12 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
             <Controls className="!bg-zinc-900 !border-zinc-800 !text-zinc-400 !rounded-lg [&>button]:!bg-zinc-900 [&>button]:!border-zinc-800 [&>button]:!text-zinc-400 [&>button:hover]:!bg-zinc-800" />
           </ReactFlow>
         </div>
-        <div className="flex items-center gap-5 mt-4 text-xs text-zinc-500">
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-[#021a0e] border border-teal-500" /> Observed</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-[#1c0a0a] border border-red-600" /> Missing / Skipped</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-[#1c1007] border border-orange-600" /> Out of Order</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-zinc-900 border border-zinc-700" /> Not Observed</span>
-          <span className="flex items-center gap-1.5"><span className="w-6 border-t border-dashed border-teal-500/50" /> Conditional</span>
+        <div className="flex items-center gap-5 mt-4 text-xs text-zinc-300">
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-teal-500" /> Observed</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-red-500" /> Missing / Skipped</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-orange-500" /> Out of Order</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-zinc-600" /> Not Observed</span>
+          <span className="flex items-center gap-1.5"><span className="w-6 border-t-2 border-dashed border-teal-400" /> Conditional</span>
         </div>
       </div>
 
