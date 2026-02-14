@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useMemo } from "react";
 import type { ObservedEvent, ProcedureNode, DeviationReport } from "@/lib/types";
-import { cn, formatTimestamp, phaseColor } from "@/lib/utils";
+import { cn, formatTimestamp } from "@/lib/utils";
 import { ConfidenceBar, PhaseBadge } from "./badges";
 
 interface Props {
@@ -22,7 +22,6 @@ export function TimelineTab({ events, nodes, report }: Props) {
   const videoPath = events[0]?.metadata?.video_path;
   const hasVideo = !!videoPath;
 
-  // Group events by phase
   const grouped = useMemo(() => {
     const groups: Record<string, ObservedEvent[]> = {};
     for (const ev of events) {
@@ -34,7 +33,6 @@ export function TimelineTab({ events, nodes, report }: Props) {
     return groups;
   }, [events, nodeMap]);
 
-  // Missing expected nodes
   const missingNodes = useMemo(() => {
     const observed = new Set(events.map(e => e.node_id));
     return nodes.filter(n => n.mandatory && !observed.has(n.id));
@@ -48,10 +46,10 @@ export function TimelineTab({ events, nodes, report }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-12 gap-6">
+    <div className="grid grid-cols-12 gap-6 animate-fade-in">
       {hasVideo && (
         <div className="col-span-5">
-          <div className="sticky top-8 bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden">
+          <div className="sticky top-8 gradient-border overflow-hidden glow-teal">
             <video
               ref={videoRef}
               controls
@@ -68,7 +66,7 @@ export function TimelineTab({ events, nodes, report }: Props) {
       )}
 
       <div className={cn(hasVideo ? "col-span-7" : "col-span-12")}>
-        <div className="space-y-6">
+        <div className="space-y-6 stagger-children">
           {Object.entries(grouped).map(([phase, phaseEvents]) => (
             <div key={phase}>
               <div className="flex items-center gap-2 mb-3">
@@ -87,32 +85,32 @@ export function TimelineTab({ events, nodes, report }: Props) {
                       key={ev.id || i}
                       onClick={() => seekTo(ts)}
                       className={cn(
-                        "bg-zinc-900 border rounded-lg px-4 py-3 cursor-pointer hover:bg-zinc-800/70 transition-colors",
-                        hasDeviation ? "border-red-500/30" : "border-zinc-800"
+                        "gradient-border px-4 py-3 cursor-pointer hover:bg-white/[0.03] transition-all duration-200 group",
+                        hasDeviation && "!border-red-500/30 before:!bg-gradient-to-r before:!from-red-500/20 before:!to-transparent"
                       )}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="text-xs font-mono text-zinc-500 w-12">{formatTimestamp(ts)}</span>
-                          <span className="text-sm font-medium text-white">{node?.name || ev.node_id}</span>
+                          <span className="text-xs font-mono text-teal-400/70 w-12">{formatTimestamp(ts)}</span>
+                          <span className="text-sm font-medium text-white group-hover:text-teal-400 transition-colors">{node?.name || ev.node_id}</span>
                           {hasDeviation && (
-                            <span className="w-2 h-2 rounded-full bg-red-500" />
+                            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                           )}
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className={cn(
-                            "px-1.5 py-0.5 rounded text-xs",
-                            ev.source === "mock" ? "bg-zinc-700 text-zinc-400" : "bg-blue-500/20 text-blue-400"
-                          )}>
-                            {ev.metadata?.original_source || ev.source}
-                          </span>
-                        </div>
+                        <span className={cn(
+                          "px-2 py-0.5 rounded-full text-xs border",
+                          ev.metadata?.original_source === "gemini"
+                            ? "bg-teal-500/10 text-teal-400 border-teal-500/20"
+                            : "bg-zinc-800 text-zinc-400 border-zinc-700"
+                        )}>
+                          {ev.metadata?.original_source || ev.source}
+                        </span>
                       </div>
                       <div className="mt-2">
                         <ConfidenceBar value={ev.confidence} label="Confidence" />
                       </div>
                       {observation && (
-                        <p className="text-xs text-zinc-500 mt-2 italic">{observation}</p>
+                        <p className="text-xs text-zinc-500 mt-2 italic leading-relaxed">{observation}</p>
                       )}
                     </div>
                   );
@@ -124,12 +122,12 @@ export function TimelineTab({ events, nodes, report }: Props) {
           {missingNodes.length > 0 && (
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-red-500/20 text-red-400">Missing</span>
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500/15 text-red-400 border border-red-500/20">Missing</span>
                 <span className="text-xs text-zinc-500">{missingNodes.length} expected steps not observed</span>
               </div>
               <div className="space-y-2">
                 {missingNodes.map((node) => (
-                  <div key={node.id} className="bg-zinc-900 border border-red-500/20 rounded-lg px-4 py-3 opacity-60">
+                  <div key={node.id} className="gradient-border px-4 py-3 opacity-50">
                     <div className="flex items-center gap-3">
                       <span className="text-xs font-mono text-zinc-600 w-12">--:--</span>
                       <span className="text-sm text-zinc-500 line-through">{node.name}</span>
@@ -148,4 +146,3 @@ export function TimelineTab({ events, nodes, report }: Props) {
     </div>
   );
 }
-

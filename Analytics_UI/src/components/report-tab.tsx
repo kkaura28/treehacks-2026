@@ -54,24 +54,24 @@ export function ReportTab({ report, runId }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex items-center gap-3">
-        <button onClick={downloadText} className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-sm rounded-lg border border-zinc-700 transition-colors">
+        <button onClick={downloadText} className="px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.06] text-white text-sm rounded-xl border border-zinc-800/50 transition-all duration-200 hover:border-zinc-700">
           Download TXT
         </button>
-        <button onClick={downloadJSON} className="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-sm rounded-lg border border-zinc-700 transition-colors">
+        <button onClick={downloadJSON} className="px-4 py-2.5 bg-white/[0.03] hover:bg-white/[0.06] text-white text-sm rounded-xl border border-zinc-800/50 transition-all duration-200 hover:border-zinc-700">
           Download JSON
         </button>
         <button
           onClick={downloadFHIR}
           disabled={fhirLoading}
-          className="px-4 py-2 bg-green-600/20 hover:bg-green-600/30 text-green-400 text-sm rounded-lg border border-green-600/30 transition-colors disabled:opacity-50"
+          className="px-4 py-2.5 bg-teal-500/10 hover:bg-teal-500/20 text-teal-400 text-sm rounded-xl border border-teal-500/20 transition-all duration-200 disabled:opacity-50 glow-teal"
         >
           {fhirLoading ? "Generating..." : "Export FHIR R4 Bundle"}
         </button>
       </div>
 
-      <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-6">
+      <div className="gradient-border p-6">
         <pre className="text-sm text-zinc-300 whitespace-pre-wrap font-mono leading-relaxed overflow-x-auto">
           {report.report_text}
         </pre>
@@ -79,4 +79,3 @@ export function ReportTab({ report, runId }: Props) {
     </div>
   );
 }
-

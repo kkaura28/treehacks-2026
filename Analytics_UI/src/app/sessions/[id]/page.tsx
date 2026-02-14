@@ -65,27 +65,27 @@ export default function SessionDetail() {
   }
 
   return (
-    <div>
+    <div className="animate-fade-in">
       <div className="mb-6">
-        <a href="/" className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors">&larr; Back to sessions</a>
-        <h2 className="text-2xl font-bold text-white mt-2">{procedure?.name || run.procedure_id}</h2>
-        <div className="flex items-center gap-4 mt-1 text-sm text-zinc-500">
+        <a href={`/procedures/${run.procedure_id}`} className="text-sm text-zinc-500 hover:text-teal-400 transition-colors duration-200">&larr; Back to sessions</a>
+        <h2 className="text-3xl font-bold text-white mt-2 tracking-tight">{procedure?.name || run.procedure_id}</h2>
+        <div className="flex items-center gap-4 mt-2 text-sm text-zinc-500">
           {run.surgeon_name && <span>{run.surgeon_name}</span>}
           <span>{new Date(run.started_at).toLocaleString()}</span>
-          <span className="font-mono text-xs">{run.id.slice(0, 8)}</span>
+          <span className="font-mono text-xs text-zinc-600">{run.id.slice(0, 8)}</span>
         </div>
       </div>
 
-      <div className="flex gap-1 border-b border-zinc-800 mb-6">
+      <div className="flex gap-1 border-b border-zinc-800/50 mb-6">
         {TABS.map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={cn(
-              "px-4 py-2.5 text-sm font-medium transition-colors border-b-2 -mb-[1px]",
+              "px-4 py-2.5 text-sm font-medium transition-all duration-200 border-b-2 -mb-[1px]",
               tab === t
-                ? "text-white border-green-500"
-                : "text-zinc-500 border-transparent hover:text-zinc-300"
+                ? "text-white border-teal-500"
+                : "text-zinc-500 border-transparent hover:text-zinc-300 hover:border-zinc-700"
             )}
           >
             {t}

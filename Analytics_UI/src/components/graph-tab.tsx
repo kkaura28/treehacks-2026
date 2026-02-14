@@ -24,9 +24,7 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
     return m;
   }, [report]);
 
-  // Topological layout: compute x/y positions
   const { flowNodes, flowEdges } = useMemo(() => {
-    // Build adjacency for sequential edges
     const seqChildren = new Map<string, string[]>();
     const inDeg = new Map<string, number>();
     for (const n of nodes) {
@@ -40,7 +38,6 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
       }
     }
 
-    // BFS for layers
     const layers: string[][] = [];
     let queue = nodes.filter(n => (inDeg.get(n.id) || 0) === 0).map(n => n.id);
     const visited = new Set<string>();
@@ -57,7 +54,6 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
       }
       queue = next;
     }
-    // Add any remaining nodes not in sequential flow
     const unvisited = nodes.filter(n => !visited.has(n.id));
     if (unvisited.length > 0) layers.push(unvisited.map(n => n.id));
 
@@ -72,35 +68,39 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
         const dev = deviationMap.get(nid);
         const observed = observedIds.has(nid);
 
-        let bg = "#27272a"; // zinc-800 default
-        let border = "#3f3f46"; // zinc-700
-        let textColor = "#a1a1aa"; // zinc-400
+        let bg = "#18181b";
+        let border = "#27272a";
+        let textColor = "#71717a";
+        let shadow = "none";
         if (dev?.deviation_type === "skipped_safety" || dev?.deviation_type === "missing") {
-          bg = "#450a0a"; border = "#dc2626"; textColor = "#fca5a5";
+          bg = "#1c0a0a"; border = "#dc2626"; textColor = "#fca5a5";
+          shadow = "0 0 12px rgba(220,38,38,0.2)";
         } else if (dev?.deviation_type === "out_of_order") {
-          bg = "#431407"; border = "#ea580c"; textColor = "#fdba74";
+          bg = "#1c1007"; border = "#ea580c"; textColor = "#fdba74";
+          shadow = "0 0 12px rgba(234,88,12,0.2)";
         } else if (observed) {
-          bg = "#052e16"; border = "#16a34a"; textColor = "#86efac";
+          bg = "#021a0e"; border = "#14b8a6"; textColor = "#5eead4";
+          shadow = "0 0 12px rgba(20,184,166,0.15)";
         }
 
         flowNodes.push({
           id: nid,
           position: { x: 80 + i * 220, y: 60 + layerIdx * 100 },
-          data: {
-            label: node.name,
-          },
+          data: { label: node.name },
           sourcePosition: Position.Bottom,
           targetPosition: Position.Top,
           style: {
             background: bg,
             border: `1.5px solid ${border}`,
             color: textColor,
-            borderRadius: "8px",
-            padding: "8px 12px",
+            borderRadius: "10px",
+            padding: "8px 14px",
             fontSize: "11px",
             fontWeight: 500,
             width: 200,
             textAlign: "center" as const,
+            boxShadow: shadow,
+            transition: "all 0.2s ease",
           },
         });
       }
@@ -113,10 +113,11 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
       type: "smoothstep",
       animated: e.type === "conditional",
       style: {
-        stroke: e.type === "sequential" ? "#52525b" : "#3b82f680",
+        stroke: e.type === "sequential" ? "#3f3f46" : "#2dd4bf40",
+        strokeWidth: 1.5,
         strokeDasharray: e.type === "conditional" ? "5 5" : undefined,
       },
-      markerEnd: { type: MarkerType.ArrowClosed, color: e.type === "sequential" ? "#52525b" : "#3b82f680" },
+      markerEnd: { type: MarkerType.ArrowClosed, color: e.type === "sequential" ? "#3f3f46" : "#2dd4bf40" },
     }));
 
     return { flowNodes, flowEdges };
@@ -129,9 +130,9 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
   }, [nodeMap]);
 
   return (
-    <div className="grid grid-cols-12 gap-6">
+    <div className="grid grid-cols-12 gap-6 animate-fade-in">
       <div className={selected ? "col-span-8" : "col-span-12"}>
-        <div className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden" style={{ height: 600 }}>
+        <div className="gradient-border overflow-hidden" style={{ height: 600 }}>
           <ReactFlow
             nodes={flowNodes}
             edges={flowEdges}
@@ -141,68 +142,68 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
             maxZoom={1.5}
             proOptions={{ hideAttribution: true }}
           >
-            <Background color="#27272a" gap={20} />
-            <Controls className="!bg-zinc-800 !border-zinc-700 !text-zinc-300 [&>button]:!bg-zinc-800 [&>button]:!border-zinc-700 [&>button]:!text-zinc-300 [&>button:hover]:!bg-zinc-700" />
+            <Background color="#1a1a1e" gap={20} />
+            <Controls className="!bg-zinc-900 !border-zinc-800 !text-zinc-400 !rounded-lg [&>button]:!bg-zinc-900 [&>button]:!border-zinc-800 [&>button]:!text-zinc-400 [&>button:hover]:!bg-zinc-800" />
           </ReactFlow>
         </div>
-        <div className="flex items-center gap-4 mt-3 text-xs text-zinc-500">
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-green-900 border border-green-600" /> Observed</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-red-950 border border-red-600" /> Missing/Skipped</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-orange-950 border border-orange-600" /> Out of Order</span>
-          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-zinc-800 border border-zinc-700" /> Not Observed</span>
-          <span className="flex items-center gap-1.5"><span className="w-6 border-t border-dashed border-blue-500" /> Conditional</span>
+        <div className="flex items-center gap-5 mt-4 text-xs text-zinc-500">
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-[#021a0e] border border-teal-500" /> Observed</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-[#1c0a0a] border border-red-600" /> Missing / Skipped</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-[#1c1007] border border-orange-600" /> Out of Order</span>
+          <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-md bg-zinc-900 border border-zinc-700" /> Not Observed</span>
+          <span className="flex items-center gap-1.5"><span className="w-6 border-t border-dashed border-teal-500/50" /> Conditional</span>
         </div>
       </div>
 
       {selected && (
-        <div className="col-span-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 sticky top-8">
-            <div className="flex items-center justify-between mb-3">
+        <div className="col-span-4 animate-scale-in">
+          <div className="gradient-border p-5 sticky top-8">
+            <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-white">{selected.name}</h3>
-              <button onClick={() => setSelected(null)} className="text-zinc-500 hover:text-white text-xs">Close</button>
+              <button onClick={() => setSelected(null)} className="text-zinc-500 hover:text-teal-400 text-xs transition-colors">Close</button>
             </div>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-2">
+            <div className="space-y-4 text-sm">
+              <div className="flex items-center gap-2 flex-wrap">
                 <PhaseBadge phase={selected.phase} />
                 <SafetyCriticalFlag critical={selected.safety_critical} />
-                {selected.mandatory && <span className="text-xs text-yellow-400">Mandatory</span>}
+                {selected.mandatory && <span className="text-xs text-amber-400 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">Mandatory</span>}
               </div>
               <div>
-                <div className="text-xs text-zinc-500 mb-1">Status</div>
+                <div className="text-xs text-zinc-500 mb-1 font-medium uppercase tracking-wider">Status</div>
                 <div className="text-sm">
                   {observedIds.has(selected.id) ? (
-                    <span className="text-green-400">Observed</span>
+                    <span className="text-teal-400">Observed</span>
                   ) : (
                     <span className="text-red-400">Not observed</span>
                   )}
                   {deviationMap.has(selected.id) && (
-                    <span className="ml-2 text-red-300">({deviationMap.get(selected.id)!.deviation_type})</span>
+                    <span className="ml-2 text-red-300 text-xs">({deviationMap.get(selected.id)!.deviation_type.replace(/_/g, " ")})</span>
                   )}
                 </div>
               </div>
               {selected.actors.length > 0 && (
                 <div>
-                  <div className="text-xs text-zinc-500 mb-1">Actors</div>
-                  <div className="flex flex-wrap gap-1">
-                    {selected.actors.map(a => <span key={a} className="px-2 py-0.5 bg-zinc-800 rounded text-xs text-zinc-300">{a}</span>)}
+                  <div className="text-xs text-zinc-500 mb-1.5 font-medium uppercase tracking-wider">Actors</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selected.actors.map(a => <span key={a} className="px-2.5 py-1 bg-white/[0.03] border border-zinc-800/50 rounded-lg text-xs text-zinc-300">{a}</span>)}
                   </div>
                 </div>
               )}
               {selected.required_tools.length > 0 && (
                 <div>
-                  <div className="text-xs text-zinc-500 mb-1">Required Tools</div>
-                  <div className="flex flex-wrap gap-1">
-                    {selected.required_tools.map(t => <span key={t} className="px-2 py-0.5 bg-zinc-800 rounded text-xs text-zinc-300">{t.replace(/_/g, " ")}</span>)}
+                  <div className="text-xs text-zinc-500 mb-1.5 font-medium uppercase tracking-wider">Required Tools</div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selected.required_tools.map(t => <span key={t} className="px-2.5 py-1 bg-white/[0.03] border border-zinc-800/50 rounded-lg text-xs text-zinc-300">{t.replace(/_/g, " ")}</span>)}
                   </div>
                 </div>
               )}
               {selected.preconditions.length > 0 && (
                 <div>
-                  <div className="text-xs text-zinc-500 mb-1">Preconditions</div>
-                  <div className="flex flex-wrap gap-1">
+                  <div className="text-xs text-zinc-500 mb-1.5 font-medium uppercase tracking-wider">Preconditions</div>
+                  <div className="flex flex-wrap gap-1.5">
                     {selected.preconditions.map(p => {
                       const pNode = nodeMap.get(p);
-                      return <span key={p} className="px-2 py-0.5 bg-zinc-800 rounded text-xs text-zinc-300">{pNode?.name || p}</span>;
+                      return <span key={p} className="px-2.5 py-1 bg-white/[0.03] border border-zinc-800/50 rounded-lg text-xs text-zinc-300">{pNode?.name || p}</span>;
                     })}
                   </div>
                 </div>
@@ -214,4 +215,3 @@ export function GraphTab({ nodes, edges, events, report }: Props) {
     </div>
   );
 }
-

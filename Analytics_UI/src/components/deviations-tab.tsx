@@ -1,7 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import type { DeviationReport, AdjudicatedDeviation } from "@/lib/types";
-import { VerdictBadge, DeviationTypeBadge, PhaseBadge, SafetyCriticalFlag, ConfidenceBar } from "./badges";
+import { VerdictBadge, DeviationTypeBadge, PhaseBadge, SafetyCriticalFlag } from "./badges";
 import { parseEvidenceSummary, cn } from "@/lib/utils";
 
 interface Props {
@@ -11,19 +11,19 @@ interface Props {
 function SnippetCard({ text, confidence, source, doi, type }: { text: string; confidence: number; source: string; doi: string; type: "risk" | "safe" }) {
   return (
     <div className={cn(
-      "border rounded-lg p-3",
-      type === "risk" ? "border-red-500/20 bg-red-500/5" : "border-green-500/20 bg-green-500/5"
+      "border rounded-xl p-3.5",
+      type === "risk" ? "border-red-500/15 bg-red-500/[0.03]" : "border-emerald-500/15 bg-emerald-500/[0.03]"
     )}>
       <div className="flex items-center justify-between mb-2">
         <span className={cn(
-          "text-xs font-medium px-2 py-0.5 rounded-full",
-          type === "risk" ? "bg-red-500/20 text-red-400" : "bg-green-500/20 text-green-400"
+          "text-xs font-medium px-2.5 py-0.5 rounded-full border",
+          type === "risk" ? "bg-red-500/10 text-red-400 border-red-500/20" : "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
         )}>
           {type === "risk" ? "Supports Risk" : "Supports Safety"}
         </span>
         <span className={cn(
-          "text-xs font-mono font-medium",
-          confidence >= 0.9 ? "text-red-400" : confidence >= 0.7 ? "text-yellow-400" : "text-zinc-400"
+          "text-xs font-mono font-semibold px-2 py-0.5 rounded-md",
+          confidence >= 0.9 ? "text-red-400 bg-red-500/10" : confidence >= 0.7 ? "text-yellow-400 bg-yellow-500/10" : "text-zinc-400 bg-zinc-800"
         )}>
           {Math.round(confidence * 100)}% NLI
         </span>
@@ -32,8 +32,8 @@ function SnippetCard({ text, confidence, source, doi, type }: { text: string; co
       <div className="mt-2 text-xs text-zinc-500">
         <span>{source.slice(0, 80)}</span>
         {doi && (
-          <a href={`https://doi.org/${doi}`} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-400 hover:underline">
-            DOI
+          <a href={`https://doi.org/${doi}`} target="_blank" rel="noopener noreferrer" className="ml-2 text-teal-400 hover:text-teal-300 transition-colors">
+            DOI &rarr;
           </a>
         )}
       </div>
@@ -53,18 +53,13 @@ function DeviationCard({ deviation }: { deviation: AdjudicatedDeviation }) {
 
   return (
     <div className={cn(
-      "border rounded-lg overflow-hidden",
-      deviation.verdict === "confirmed" ? "border-red-500/30" :
-      deviation.verdict === "context_dependent" ? "border-yellow-500/30" :
-      "border-green-500/30"
+      "rounded-xl overflow-hidden transition-all duration-200",
+      deviation.verdict === "confirmed" ? "gradient-border before:!bg-gradient-to-r before:!from-red-500/20 before:!via-red-500/5 before:!to-transparent" :
+      deviation.verdict === "context_dependent" ? "gradient-border before:!bg-gradient-to-r before:!from-yellow-500/20 before:!via-yellow-500/5 before:!to-transparent" :
+      "gradient-border before:!bg-gradient-to-r before:!from-emerald-500/20 before:!via-emerald-500/5 before:!to-transparent"
     )}>
       <div
-        className={cn(
-          "px-4 py-3 cursor-pointer hover:bg-zinc-800/50 transition-colors",
-          deviation.verdict === "confirmed" ? "bg-red-500/5" :
-          deviation.verdict === "context_dependent" ? "bg-yellow-500/5" :
-          "bg-green-500/5"
-        )}
+        className="px-5 py-4 cursor-pointer hover:bg-white/[0.02] transition-all duration-200"
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex items-center justify-between">
@@ -76,43 +71,42 @@ function DeviationCard({ deviation }: { deviation: AdjudicatedDeviation }) {
           </div>
           <div className="flex items-center gap-2">
             <VerdictBadge verdict={deviation.verdict} />
-            <svg className={cn("w-4 h-4 text-zinc-500 transition-transform", expanded && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className={cn("w-4 h-4 text-zinc-500 transition-transform duration-200", expanded && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>
         </div>
 
-        {/* NLI score bar */}
         <div className="mt-3 flex items-center gap-2">
           <span className="text-xs text-zinc-500 w-8">Risk</span>
-          <div className="flex-1 h-3 bg-zinc-800 rounded-full overflow-hidden flex">
-            <div className="bg-red-500/70 h-full rounded-l-full" style={{ width: `${riskRatio * 100}%` }} />
-            <div className="bg-green-500/70 h-full rounded-r-full" style={{ width: `${(1 - riskRatio) * 100}%` }} />
+          <div className="flex-1 h-3 bg-zinc-800/80 rounded-full overflow-hidden flex">
+            <div className="bg-gradient-to-r from-red-500 to-red-400 h-full rounded-l-full transition-all duration-700" style={{ width: `${riskRatio * 100}%` }} />
+            <div className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-full rounded-r-full transition-all duration-700" style={{ width: `${(1 - riskRatio) * 100}%` }} />
           </div>
           <span className="text-xs text-zinc-500 w-8 text-right">Safe</span>
         </div>
       </div>
 
       {expanded && (
-        <div className="px-4 py-4 border-t border-zinc-800/50 bg-zinc-900/50 space-y-4">
+        <div className="px-5 py-5 border-t border-zinc-800/30 bg-white/[0.01] space-y-5 animate-fade-in">
           <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="bg-zinc-800/50 rounded-lg p-2">
-              <div className="text-lg font-bold text-white">{evidence.citationLandscape.supporting.toLocaleString()}</div>
-              <div className="text-xs text-zinc-500">Supporting</div>
+            <div className="gradient-border p-3">
+              <div className="text-xl font-bold text-white">{evidence.citationLandscape.supporting.toLocaleString()}</div>
+              <div className="text-xs text-zinc-500 mt-0.5">Supporting</div>
             </div>
-            <div className="bg-zinc-800/50 rounded-lg p-2">
-              <div className="text-lg font-bold text-white">{evidence.citationLandscape.contrasting.toLocaleString()}</div>
-              <div className="text-xs text-zinc-500">Contrasting</div>
+            <div className="gradient-border p-3">
+              <div className="text-xl font-bold text-white">{evidence.citationLandscape.contrasting.toLocaleString()}</div>
+              <div className="text-xs text-zinc-500 mt-0.5">Contrasting</div>
             </div>
-            <div className="bg-zinc-800/50 rounded-lg p-2">
-              <div className="text-lg font-bold text-white">{evidence.snippetsAnalyzed}</div>
-              <div className="text-xs text-zinc-500">Snippets Analyzed</div>
+            <div className="gradient-border p-3">
+              <div className="text-xl font-bold text-white">{evidence.snippetsAnalyzed}</div>
+              <div className="text-xs text-zinc-500 mt-0.5">Snippets Analyzed</div>
             </div>
           </div>
 
           {evidence.riskSnippets.length > 0 && (
             <div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wider mb-2">Evidence of Clinical Significance</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wider mb-2.5 font-medium">Evidence of Clinical Significance</div>
               <div className="space-y-2">
                 {evidence.riskSnippets.map((s, i) => <SnippetCard key={i} {...s} />)}
               </div>
@@ -121,13 +115,12 @@ function DeviationCard({ deviation }: { deviation: AdjudicatedDeviation }) {
 
           {evidence.safeSnippets.length > 0 && (
             <div>
-              <div className="text-xs text-zinc-500 uppercase tracking-wider mb-2">Evidence Deviation May Be Acceptable</div>
+              <div className="text-xs text-zinc-500 uppercase tracking-wider mb-2.5 font-medium">Evidence Deviation May Be Acceptable</div>
               <div className="space-y-2">
                 {evidence.safeSnippets.map((s, i) => <SnippetCard key={i} {...s} />)}
               </div>
             </div>
           )}
-
         </div>
       )}
     </div>
@@ -142,13 +135,13 @@ export function DeviationsTab({ report }: Props) {
   const mitigated = report.adjudicated.filter(d => d.verdict === "mitigated");
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-fade-in">
       {confirmed.length > 0 && (
         <div>
-          <h3 className="text-sm font-medium text-red-400 uppercase tracking-wider mb-3">
+          <h3 className="text-sm font-semibold text-red-400 uppercase tracking-wider mb-4">
             Confirmed Deviations ({confirmed.length})
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-3 stagger-children">
             {confirmed.map((d, i) => <DeviationCard key={i} deviation={d} />)}
           </div>
         </div>
@@ -156,10 +149,10 @@ export function DeviationsTab({ report }: Props) {
 
       {review.length > 0 && (
         <div>
-          <h3 className="text-sm font-medium text-yellow-400 uppercase tracking-wider mb-3">
+          <h3 className="text-sm font-semibold text-yellow-400 uppercase tracking-wider mb-4">
             Needs Review ({review.length})
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-3 stagger-children">
             {review.map((d, i) => <DeviationCard key={i} deviation={d} />)}
           </div>
         </div>
@@ -167,23 +160,22 @@ export function DeviationsTab({ report }: Props) {
 
       {mitigated.length > 0 && (
         <div>
-          <h3 className="text-sm font-medium text-green-400 uppercase tracking-wider mb-3">
+          <h3 className="text-sm font-semibold text-emerald-400 uppercase tracking-wider mb-4">
             Mitigated ({mitigated.length})
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-3 stagger-children">
             {mitigated.map((d, i) => <DeviationCard key={i} deviation={d} />)}
           </div>
         </div>
       )}
 
       {report.adjudicated.length === 0 && (
-        <div className="text-center py-12">
-          <div className="text-4xl mb-3">✓</div>
-          <div className="text-lg text-green-400 font-medium">Full Compliance</div>
-          <div className="text-sm text-zinc-500">No deviations detected</div>
+        <div className="text-center py-16 animate-scale-in">
+          <div className="text-5xl mb-4">✓</div>
+          <div className="text-xl font-semibold bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">Full Compliance</div>
+          <div className="text-sm text-zinc-500 mt-1">No deviations detected</div>
         </div>
       )}
     </div>
   );
 }
-
