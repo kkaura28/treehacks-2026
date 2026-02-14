@@ -194,7 +194,7 @@ def _get_video_events(
     procedure_name: str,
     raw_nodes: list[dict],
     model_name: str,
-) -> tuple[list[ObservedEvent], str]:
+) -> tuple[list[ObservedEvent], str, list[dict]]:
     from video_interpreter import interpret_video
     return interpret_video(
         video_path=video_path,
@@ -317,6 +317,7 @@ async def main():
 
     # Step 2: Get observed events
     gemini_notes = ""
+    raw_detected_items: list[dict] = []
     if source == "video":
         video_path = args["video_path"]
         if not Path(video_path).exists():
@@ -325,7 +326,7 @@ async def main():
 
         print(f"[2/5] Interpreting video with Gemini ({args['model']})...")
         print(f"  Uploading and processing video (may take 30-60s)...")
-        observed, gemini_notes = _get_video_events(
+        observed, gemini_notes, raw_detected_items = _get_video_events(
             video_path=video_path,
             procedure_name=procedure_name,
             raw_nodes=raw_nodes,
@@ -397,7 +398,7 @@ async def main():
     if source == "video":
         report_dict["video_path"] = args["video_path"]
         report_dict["gemini_model"] = args["model"]
-    report_dict["detected_events"] = [
+    report_dict["detected_events"] = raw_detected_items if raw_detected_items else [
         {"node_id": ev.node_id, "confidence": ev.confidence, "source": ev.source}
         for ev in observed
     ]

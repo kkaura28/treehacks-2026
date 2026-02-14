@@ -228,7 +228,7 @@ async def fhir_from_video(req: FHIRFromVideoRequest):
 
     # Step 1: Video → events
     logger.info("Interpreting surgical video with Gemini…")
-    events, notes = interpret_video_from_json(str(sop_path), str(vid_path))
+    events, notes, _raw_items = interpret_video_from_json(str(sop_path), str(vid_path))
 
     # Step 2: Store events and compare (requires Supabase run)
     sb = get_supabase()

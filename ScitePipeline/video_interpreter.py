@@ -86,7 +86,7 @@ def interpret_video(
     procedure_name: str,
     nodes: list[dict],
     model_name: str = "gemini-2.5-pro",
-) -> tuple[list[ObservedEvent], str]:
+) -> tuple[list[ObservedEvent], str, list[dict]]:
     """
     Send a video to Gemini and get back structured surgical events.
 
@@ -97,7 +97,7 @@ def interpret_video(
         model_name: Gemini model to use
 
     Returns:
-        Tuple of (list of ObservedEvent, notes string from Gemini)
+        Tuple of (list of ObservedEvent, notes string, raw detected items with timestamp_seconds)
     """
     settings = get_settings()
 
@@ -153,10 +153,11 @@ def interpret_video(
     data = _parse_gemini_response(raw_text)
     notes = data.get("notes", "")
 
-    # Convert to ObservedEvent objects
+    # Convert to ObservedEvent objects + keep raw items with timestamp_seconds
     valid_ids = {n["id"] for n in nodes}
     base_time = datetime.now(timezone.utc)
     events = []
+    raw_items = []
 
     for item in data.get("detected_events", []):
         node_id = item.get("node_id", "")
@@ -170,6 +171,13 @@ def interpret_video(
             confidence=item.get("confidence", 0.5),
             source="gemini",
         ))
+        raw_items.append({
+            "node_id": node_id,
+            "timestamp_seconds": item.get("timestamp_seconds", 0),
+            "confidence": item.get("confidence", 0.5),
+            "observation": item.get("observation", ""),
+            "source": "gemini",
+        })
 
     # Clean up uploaded file
     try:
@@ -178,10 +186,10 @@ def interpret_video(
         pass
 
     logger.info(f"Detected {len(events)} events from video")
-    return events, notes
+    return events, notes, raw_items
 
 
-def interpret_video_from_json(nodes_json_path: str, video_path: str, **kwargs) -> tuple[list[ObservedEvent], str]:
+def interpret_video_from_json(nodes_json_path: str, video_path: str, **kwargs) -> tuple[list[ObservedEvent], str, list[dict]]:
     """
     Convenience: load nodes from a procedure JSON file and interpret video.
     """

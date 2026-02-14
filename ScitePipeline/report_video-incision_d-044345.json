@@ -91,68 +91,113 @@
   "report_text": "============================================================\nPOST-OPERATIVE COMPLIANCE REPORT\nProcedure: Incision and Drainage of Abscess\nRun ID: video-incision_d-044345\nGenerated: 2026-02-14 12:43 UTC\nCompliance Score: 69%\n============================================================\n\nSteps expected: 13\nSteps observed: 12\nDeviations found: 4\n  Confirmed: 4\n  Mitigated: 0\n  Needs review: 0\n\n------------------------------------------------------------\nCONFIRMED DEVIATIONS\n------------------------------------------------------------\n  [CONFIRMED] Allergy Check (Anesthetic and Antibiotic Allergies)\n    Type: skipped_safety\n    Phase: checklist\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Allergy Check (Anesthetic and Antibiotic Allergies)' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of th...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n\n  [CONFIRMED] Site Identification and Marking\n    Type: skipped_safety\n    Phase: checklist\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Site Identification and Marking' (skipped_safety)\n  Citation landscape: 1181696 supporting, 251692 contrasting\n  Snippets analyzed by NLI model: 12\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 99%] \"In addition, extraction of these roots poses seve...\n    Citations: [scite: 1181696 supporting, 251692 contrasting], Thoraco-Cervical Computed Tomographic Angiography to Determine an Appropriate Ac (DOI: 10.5797/jnet.oa.2020-0117), Non-Invasively Detecting Blood Vessels during Laparoscopic/Robotic Procedure (DOI: 10.4172/2155-6210.1000214), Renal Artery Perforation During Transcatheter Aortic Valve Replacement (DOI: 10.1016/j.jaccas.2025.105299), Evaluation of dental panoramic radiographic findings in edentulous jaws: A retro (DOI: 10.4047/jap.2015.7.5.380)\n\n  [CONFIRMED] Equipment and Supplies Preparation\n    Type: out_of_order\n    Phase: setup\n    Safety-critical: False\n    Evidence: Evidence analysis for: 'Equipment and Supplies Preparation' (out_of_order)\n  Citation landscape: 1409970 supporting, 172778 contrasting\n  Snippets analyzed by NLI model: 10\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 96%] \"Wolf et al reporte d that the recurrence rate am...\n    Citations: [scite: 1409970 supporting, 172778 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)\n\n  [CONFIRMED] Sterile Skin Preparation\n    Type: out_of_order\n    Phase: setup\n    Safety-critical: True\n    Evidence: Evidence analysis for: 'Sterile Skin Preparation' (out_of_order)\n  Citation landscape: 1409970 supporting, 172778 contrasting\n  Snippets analyzed by NLI model: 10\n\nEvidence this deviation is clinically significant:\n  - [NLI confidence: 96%] \"Wolf et al reporte d that the recurrence rate among patie ...\n    Citations: [scite: 1409970 supporting, 172778 contrasting], Efficacy of wound care ointment in healing infectious wounds after anorectal sur (DOI: 10.1097/md.0000000000041347), Three Years Experience of Inguinal Hernia in Children in BSMMU (DOI: 10.3329/jpsb.v6i2.27747), BMJ Rapid Recommendations: Creating Tools to Support a Revolution in Clinical Pr (DOI: 10.22374/cjgim.v14i1.318), Improving the Consent Process for Superficial Abscesses Through Pre-printed Cons (DOI: 10.7759/cureus.73421)\n\n============================================================",
   "created_at": "2026-02-14 12:43:45.949323",
   "source": "video",
-  "gemini_notes": "The video provides a comprehensive overview of the incision and drainage procedure, including indications, contraindications, equipment, and a step-by-step demonstration. It uses a combination of live-action footage, still images, and animations to illustrate key concepts. The procedure is performed in a clean, controlled setting. The video also covers important aftercare and complication management topics.",
+  "gemini_notes": "The video is an educational presentation from The New England Journal of Medicine. It combines live-action demonstrations, informational slides with text and images, and animations to explain the procedure. The events were logged based on the live-action demonstrations of a single procedure, although some steps were shown in a brief introductory montage as well.",
   "video_path": "surgery_video_3.mp4",
   "gemini_model": "gemini-2.5-pro",
   "detected_events": [
     {
-      "node_id": "equipment_preparation",
-      "confidence": 0.9,
-      "source": "gemini"
-    },
-    {
-      "node_id": "patient_identification",
-      "confidence": 0.9,
-      "source": "gemini"
-    },
-    {
-      "node_id": "sterile_preparation",
-      "confidence": 1.0,
-      "source": "gemini"
-    },
-    {
-      "node_id": "local_anesthesia",
-      "confidence": 1.0,
-      "source": "gemini"
-    },
-    {
       "node_id": "incision",
-      "confidence": 1.0,
-      "source": "gemini"
-    },
-    {
-      "node_id": "wound_culture",
-      "confidence": 0.95,
+      "timestamp_seconds": 18,
+      "confidence": 0.9,
+      "observation": "A brief overview of the procedure begins, showing a scalpel making an incision into the abscess.",
       "source": "gemini"
     },
     {
       "node_id": "drainage_expression",
-      "confidence": 1.0,
+      "timestamp_seconds": 23,
+      "confidence": 0.9,
+      "observation": "In the overview, purulent material is manually expressed from the incised abscess.",
       "source": "gemini"
     },
     {
       "node_id": "loculation_breakdown",
+      "timestamp_seconds": 28,
+      "confidence": 0.85,
+      "observation": "In the overview, a hemostat is inserted into the wound cavity to explore and break up loculations.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "wound_culture",
+      "timestamp_seconds": 33,
+      "confidence": 0.9,
+      "observation": "In the overview, a culture swab is used inside the opened abscess cavity.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "equipment_preparation",
+      "timestamp_seconds": 238,
       "confidence": 1.0,
+      "observation": "A sterile tray containing necessary surgical instruments, gauze, a bowl, and a syringe is displayed.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "patient_identification",
+      "timestamp_seconds": 239,
+      "confidence": 0.95,
+      "observation": "A doctor discusses a consent form on a clipboard with the patient, who then signs the document.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "sterile_preparation",
+      "timestamp_seconds": 245,
+      "confidence": 1.0,
+      "observation": "The clinician applies an antiseptic solution (povidone-iodine) to the skin over the abscess in a circular motion.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "local_anesthesia",
+      "timestamp_seconds": 272,
+      "confidence": 1.0,
+      "observation": "A syringe and needle are used to inject local anesthetic into the intradermal tissue over the abscess, causing blanching of the skin.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "incision",
+      "timestamp_seconds": 296,
+      "confidence": 1.0,
+      "observation": "A scalpel is used to make a linear incision directly into the anesthetized skin over the abscess.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "drainage_expression",
+      "timestamp_seconds": 362,
+      "confidence": 1.0,
+      "observation": "The clinician applies manual pressure with gloved fingers to express the purulent contents from the abscess cavity.",
+      "source": "gemini"
+    },
+    {
+      "node_id": "loculation_breakdown",
+      "timestamp_seconds": 373,
+      "confidence": 1.0,
+      "observation": "A curved hemostat is inserted into the incision and opened to bluntly dissect and break up internal loculations within the abscess cavity.",
       "source": "gemini"
     },
     {
       "node_id": "wound_irrigation",
-      "confidence": 0.95,
+      "timestamp_seconds": 400,
+      "confidence": 1.0,
+      "observation": "The wound cavity is irrigated with sterile normal saline using a syringe with a splash guard.",
       "source": "gemini"
     },
     {
       "node_id": "wound_packing",
+      "timestamp_seconds": 413,
       "confidence": 1.0,
+      "observation": "A strip of packing gauze is gently inserted into the wound cavity using a hemostat to keep the wound open for drainage.",
       "source": "gemini"
     },
     {
       "node_id": "external_dressing",
+      "timestamp_seconds": 494,
       "confidence": 1.0,
+      "observation": "A sterile gauze pad is placed over the packed wound and secured with tape to create an external dressing.",
       "source": "gemini"
     },
     {
       "node_id": "discharge_instructions",
+      "timestamp_seconds": 507,
       "confidence": 0.9,
+      "observation": "The doctor is shown reviewing paperwork with the patient after the procedure, consistent with providing follow-up and discharge instructions.",
       "source": "gemini"
     }
   ]
