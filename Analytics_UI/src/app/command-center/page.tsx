@@ -344,9 +344,6 @@ function LiveRunCard({ run, orRoom, now }: { run: LiveRun; orRoom: string; now: 
           <div className="mb-4 px-3 py-2 rounded-lg bg-white/[0.03] border border-zinc-800/50">
             <div className="text-[10px] text-zinc-600 uppercase tracking-wider mb-0.5">Current Step</div>
             <div className="text-sm text-white font-medium">{run.currentStep}</div>
-            {run.currentPhase && (
-              <div className="text-[10px] text-teal-400/70 mt-0.5">{run.currentPhase}</div>
-            )}
           </div>
         )}
 
