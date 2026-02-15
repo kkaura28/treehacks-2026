@@ -182,7 +182,7 @@ export default function SurgeonDetail() {
             <Tooltip
               contentStyle={{ backgroundColor: "#18181b", border: "1px solid #27272a", borderRadius: 8, fontSize: 12 }}
               labelStyle={{ color: "#a1a1aa" }}
-              formatter={(value: number, _: string, entry: any) => [`${value}%`, entry.payload.procedure]}
+              formatter={(value, _name, entry: any) => [`${value}%`, entry?.payload?.procedure]}
             />
             <Line
               type="monotone"
