@@ -66,15 +66,13 @@ function DeviationCard({ deviation }: { deviation: AdjudicatedDeviation }) {
           <div className="flex items-center gap-2 flex-wrap">
             <span className="text-sm font-medium text-white">{deviation.node_name}</span>
             <DeviationTypeBadge type={deviation.deviation_type} />
-            <PhaseBadge phase={deviation.phase} />
-            <SafetyCriticalFlag critical={deviation.original_safety_critical} />
+            {deviation.original_safety_critical && (
+              <span className="text-[10px] text-red-400/70">⚠ Safety Critical</span>
+            )}
           </div>
-          <div className="flex items-center gap-2">
-            <VerdictBadge verdict={deviation.verdict} />
-            <svg className={cn("w-4 h-4 text-zinc-500 transition-transform duration-200", expanded && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
+          <svg className={cn("w-4 h-4 text-zinc-500 transition-transform duration-200", expanded && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
 
         <div className="mt-3 flex items-center gap-2">
@@ -90,14 +88,21 @@ function DeviationCard({ deviation }: { deviation: AdjudicatedDeviation }) {
       {expanded && (
         <div className="px-5 py-5 border-t border-zinc-800/30 bg-white/[0.01] space-y-5 animate-fade-in">
           <div className="grid grid-cols-3 gap-3 text-center">
-            <div className="gradient-border p-3">
-              <div className="text-xl font-bold text-white">{evidence.citationLandscape.supporting.toLocaleString()}</div>
-              <div className="text-xs text-zinc-500 mt-0.5">Supporting</div>
-            </div>
-            <div className="gradient-border p-3">
-              <div className="text-xl font-bold text-white">{evidence.citationLandscape.contrasting.toLocaleString()}</div>
-              <div className="text-xs text-zinc-500 mt-0.5">Contrasting</div>
-            </div>
+            {(() => {
+              const total = evidence.citationLandscape.supporting + evidence.citationLandscape.contrasting;
+              const supPct = total > 0 ? Math.round((evidence.citationLandscape.supporting / total) * 100) : 0;
+              const conPct = total > 0 ? 100 - supPct : 0;
+              return (<>
+                <div className="gradient-border p-3">
+                  <div className="text-xl font-bold text-red-400">{supPct}%</div>
+                  <div className="text-xs text-zinc-500 mt-0.5">Supporting</div>
+                </div>
+                <div className="gradient-border p-3">
+                  <div className="text-xl font-bold text-emerald-400">{conPct}%</div>
+                  <div className="text-xs text-zinc-500 mt-0.5">Contrasting</div>
+                </div>
+              </>);
+            })()}
             <div className="gradient-border p-3">
               <div className="text-xl font-bold text-white">{evidence.snippetsAnalyzed}</div>
               <div className="text-xs text-zinc-500 mt-0.5">Snippets Analyzed</div>
