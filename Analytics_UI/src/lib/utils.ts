@@ -64,6 +64,12 @@ export function formatTimestamp(seconds: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
+export function formatTimestampPrecise(seconds: number): string {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${s.toFixed(1).padStart(4, "0")}`;
+}
+
 export function parseEvidenceSummary(summary: string): ParsedEvidence {
   const result: ParsedEvidence = {
     citationLandscape: { supporting: 0, contrasting: 0 },

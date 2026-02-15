@@ -52,8 +52,17 @@ export interface ObservedEvent {
     observation?: string;
     original_source?: string;
     video_path?: string;
+    strokes?: StrokeSegment[];
   };
   created_at: string;
+}
+
+export interface StrokeSegment {
+  timestamp_seconds: number; // decimal e.g. 28.4
+  end_seconds: number; // decimal e.g. 31.2
+  description: string;
+  stroke_type: "cut" | "spread" | "grasp" | "retract" | "cauterize" | "suture" | "irrigate" | "dissect" | "other";
+  instrument: "scalpel" | "forceps" | "hemostat" | "scissors" | "cautery" | "needle_driver" | "other";
 }
 
 export interface AdjudicatedDeviation {
