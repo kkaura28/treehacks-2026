@@ -1,5 +1,7 @@
 # treehacks-2026
 
+Devpost https://devpost.com/software/viper-3dr107#updates
+
 VIPER is an AI platform that watches first-person surgical video (via smart glasses) and extracts detailed spatial data like instrument tracking, pose estimation, hand positions, and surgical stroke segmentation, then reasons over it to map actions to protocols and flag deviations backed by literature. Everything surfaces through an analytics platform with live OR tracking, interactive timelines, deviation cards, protocol graphs, skills dashboards, EHR export, and a pre-op voice briefing mode, so it's essentially an AI system that watches surgery happen and tells you, in real time and after the fact, what went right, what didn't, and why.
 
 ## Setup (including FoundationPose)
