@@ -52,6 +52,34 @@ function Field({ label, value }: { label: string; value: string }) {
   );
 }
 
+function downloadStaticCSV(path: string, filename: string) {
+  const a = document.createElement("a");
+  a.href = path;
+  a.download = filename;
+  a.click();
+}
+
+async function downloadCentroidsAsCSV() {
+  try {
+    const resp = await fetch("/data/centroids.json");
+    const raw = await resp.json();
+    const keys = Object.keys(raw).sort();
+    const rows = ["frame_idx,x,y"];
+    for (let i = 0; i < keys.length; i++) {
+      rows.push(`${i},${raw[keys[i]].x},${raw[keys[i]].y}`);
+    }
+    const blob = new Blob([rows.join("\n")], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "blade_centroids.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch {
+    alert("Failed to export centroids");
+  }
+}
+
 export function ReportTab({ report, events, nodes, run, procedure, runId }: Props) {
   const [fhirLoading, setFhirLoading] = useState(false);
 
@@ -223,21 +251,37 @@ export function ReportTab({ report, events, nodes, run, procedure, runId }: Prop
         <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">Tracking Data</h3>
         <div className="grid grid-cols-2 gap-4 stagger-children">
           <ExportCard
-            title="Instrument Trajectories CSV"
-            description="6DoF pose data for each tracked instrument (scalpel, hemostat, forceps) — position, rotation, velocity at each frame"
+            title="Tweezer Tip Trajectories CSV"
+            description="Per-frame (x0, y0, x1, y1) for both tweezer tips — 648 frames via optical flow tracking"
             icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
-            disabled
+            onClick={() => downloadStaticCSV("/data/tracked_tips_tweezer.csv", "tweezer_tips.csv")}
+            accent
+          />
+          <ExportCard
+            title="Blade Tip Trajectory CSV"
+            description="Per-frame (x0, y0) blade tip position — 648 frames via optical flow tracking"
+            icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
+            onClick={() => downloadStaticCSV("/data/tracked_tips_blade.csv", "blade_tips.csv")}
+            accent
+          />
+          <ExportCard
+            title="Blade Centroid (FoundationPose) CSV"
+            description="Per-frame (x, y) blade body centroid from 6DoF pose estimation — 496 frames"
+            icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
+            onClick={() => downloadCentroidsAsCSV()}
+            accent
+          />
+          <ExportCard
+            title="Kinematics Summary JSON"
+            description="GOALS scores + per-instrument kinematic metrics (path length, smoothness, tremor, etc.)"
+            icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
+            onClick={() => downloadStaticCSV("/data/kinematics.json", "kinematics.json")}
+            accent
           />
           <ExportCard
             title="Hand Kinematics CSV"
             description="Surgeon hand position, orientation, and finger articulation data — left and right hand tracked independently"
             icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" /></svg>}
-            disabled
-          />
-          <ExportCard
-            title="Patient Anatomy CSV"
-            description="Tracked anatomical landmarks and tissue deformation data — spatial reference points at each timestep"
-            icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>}
             disabled
           />
           <ExportCard

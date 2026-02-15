@@ -1,0 +1,103 @@
+{
+  "fps": 24,
+  "instruments": [
+    {
+      "name": "Tweezer",
+      "frames": 648,
+      "duration_seconds": 27.0,
+      "path_length_px": 4562.8,
+      "motion_economy": 0.0144,
+      "idle_fraction": 0.5301,
+      "movement_count": 177,
+      "smoothness_sparc": -260.6264,
+      "tremor_index_px": 12.0657,
+      "mean_speed_px_s": 169.25,
+      "max_speed_px_s": 10634.93,
+      "tip0": {
+        "name": "Tweezer Tip 0",
+        "frames": 648,
+        "duration_seconds": 27.0,
+        "path_length_px": 5281.7,
+        "motion_economy": 0.0053,
+        "idle_fraction": 0.5116,
+        "movement_count": 173,
+        "smoothness_sparc": -272.4647,
+        "tremor_index_px": 15.5467,
+        "mean_speed_px_s": 195.92,
+        "max_speed_px_s": 13950.11
+      },
+      "tip1": {
+        "name": "Tweezer Tip 1",
+        "frames": 648,
+        "duration_seconds": 27.0,
+        "path_length_px": 6730.4,
+        "motion_economy": 0.0153,
+        "idle_fraction": 0.4822,
+        "movement_count": 196,
+        "smoothness_sparc": -244.2432,
+        "tremor_index_px": 10.3382,
+        "mean_speed_px_s": 249.66,
+        "max_speed_px_s": 7958.38
+      },
+      "bimanual_correlation": 0.8283,
+      "tip_spread_std_px": 27.47,
+      "source": "optical_flow"
+    },
+    {
+      "name": "Blade (Tip)",
+      "frames": 648,
+      "duration_seconds": 27.0,
+      "path_length_px": 7882.1,
+      "motion_economy": 0.0072,
+      "idle_fraction": 0.4328,
+      "movement_count": 89,
+      "smoothness_sparc": -273.1082,
+      "tremor_index_px": 13.1754,
+      "mean_speed_px_s": 292.38,
+      "max_speed_px_s": 10935.45,
+      "source": "optical_flow"
+    },
+    {
+      "name": "Blade (FoundationPose Centroid)",
+      "frames": 496,
+      "duration_seconds": 20.67,
+      "path_length_px": 6600.1,
+      "motion_economy": 0.048,
+      "idle_fraction": 0.4525,
+      "movement_count": 33,
+      "smoothness_sparc": -125.8504,
+      "tremor_index_px": 11.3524,
+      "mean_speed_px_s": 320.01,
+      "max_speed_px_s": 9232.71,
+      "source": "foundation_pose"
+    }
+  ],
+  "goals": [
+    {
+      "domain": "Efficiency",
+      "score": 3.4,
+      "max": 5
+    },
+    {
+      "domain": "Tissue Handling",
+      "score": 2.8,
+      "max": 5
+    },
+    {
+      "domain": "Bimanual Dexterity",
+      "score": 5,
+      "max": 5
+    },
+    {
+      "domain": "Depth Perception",
+      "score": 3.1,
+      "max": 5
+    },
+    {
+      "domain": "Autonomy",
+      "score": 2.6,
+      "max": 5
+    }
+  ],
+  "overall_score": 68
+}

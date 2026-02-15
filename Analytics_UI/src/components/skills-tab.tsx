@@ -1,6 +1,6 @@
 "use client";
-import { useMemo } from "react";
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from "recharts";
+import { useEffect, useMemo, useState } from "react";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 import { cn } from "@/lib/utils";
 import type { ObservedEvent } from "@/lib/types";
 
@@ -9,63 +9,55 @@ interface Props {
   procedureId: string;
 }
 
-// GOALS domains scored 1-5
-interface GOALSDomain {
-  domain: string;
-  score: number;
-  max: number;
-  description: string;
+interface KinematicsData {
+  fps: number;
+  instruments: InstrumentData[];
+  goals: { domain: string; score: number; max: number }[];
+  overall_score: number;
 }
 
-interface KinematicMetric {
+interface InstrumentData {
   name: string;
-  value: number;
-  unit: string;
-  benchmark: number;
-  status: "pass" | "marginal" | "fail";
-  description: string;
+  frames: number;
+  duration_seconds: number;
+  path_length_px: number;
+  motion_economy: number;
+  idle_fraction: number;
+  movement_count: number;
+  smoothness_sparc: number;
+  tremor_index_px: number;
+  mean_speed_px_s: number;
+  max_speed_px_s: number;
+  source: string;
+  bimanual_correlation?: number;
+  tip_spread_std_px?: number;
+  tip0?: InstrumentData;
+  tip1?: InstrumentData;
 }
 
-// Generate mock but realistic scores based on event count & confidence
-function generateScores(events: ObservedEvent[]): { goals: GOALSDomain[]; metrics: KinematicMetric[]; overallPass: boolean; overallScore: number } {
-  const avgConf = events.length > 0
-    ? events.reduce((s, e) => s + e.confidence, 0) / events.length
-    : 0.5;
+const METRIC_KEYS: { key: keyof InstrumentData; label: string; unit: string; description: string; lowerBetter: boolean }[] = [
+  { key: "path_length_px", label: "Path Length", unit: "px", description: "Total distance traveled by instrument tip", lowerBetter: true },
+  { key: "motion_economy", label: "Motion Economy", unit: "ratio", description: "Straight-line / actual path (1.0 = perfect)", lowerBetter: false },
+  { key: "idle_fraction", label: "Idle Time", unit: "%", description: "Fraction of frames with negligible movement", lowerBetter: true },
+  { key: "movement_count", label: "Movement Count", unit: "moves", description: "Discrete movement segments detected", lowerBetter: true },
+  { key: "smoothness_sparc", label: "Smoothness", unit: "SPARC", description: "Spectral arc length — closer to 0 = smoother", lowerBetter: false },
+  { key: "tremor_index_px", label: "Tremor Index", unit: "px", description: "RMS high-frequency oscillation amplitude", lowerBetter: true },
+];
 
-  // Scale scores based on confidence as a proxy for procedural quality
-  const base = avgConf * 4 + 1; // 1-5 range
-  const jitter = (seed: number) => Math.max(1, Math.min(5, Math.round((base + (Math.sin(seed * 7.3) * 0.8)) * 10) / 10));
-
-  const goals: GOALSDomain[] = [
-    { domain: "Depth Perception", score: jitter(1), max: 5, description: "Ability to judge distances and spatial relationships in the surgical field" },
-    { domain: "Bimanual Dexterity", score: jitter(2), max: 5, description: "Coordinated use of both hands during instrument manipulation" },
-    { domain: "Efficiency", score: jitter(3), max: 5, description: "Economy of movement with minimal unnecessary actions" },
-    { domain: "Tissue Handling", score: jitter(4), max: 5, description: "Appropriate force and technique when manipulating tissue" },
-    { domain: "Autonomy", score: jitter(5), max: 5, description: "Ability to complete procedure steps independently" },
-  ];
-
-  const pathLength = Math.round(120 + Math.sin(avgConf * 10) * 40);
-  const motionEcon = Math.round((0.6 + avgConf * 0.3) * 100) / 100;
-  const smoothness = Math.round((0.7 + avgConf * 0.25) * 100) / 100;
-  const idleTime = Math.round(8 + (1 - avgConf) * 15);
-  const movements = Math.round(45 + (1 - avgConf) * 30);
-  const tremor = Math.round((0.3 + (1 - avgConf) * 0.6) * 100) / 100;
-
-  const metrics: KinematicMetric[] = [
-    { name: "Path Length", value: pathLength, unit: "cm", benchmark: 150, status: pathLength <= 150 ? "pass" : pathLength <= 180 ? "marginal" : "fail", description: "Total distance traveled by primary instrument" },
-    { name: "Motion Economy", value: motionEcon, unit: "ratio", benchmark: 0.75, status: motionEcon >= 0.75 ? "pass" : motionEcon >= 0.6 ? "marginal" : "fail", description: "Ratio of optimal path to actual path (1.0 = perfect)" },
-    { name: "Smoothness", value: smoothness, unit: "SPARC", benchmark: 0.8, status: smoothness >= 0.8 ? "pass" : smoothness >= 0.65 ? "marginal" : "fail", description: "Spectral arc length - lower jerk means smoother motion" },
-    { name: "Idle Time", value: idleTime, unit: "%", benchmark: 15, status: idleTime <= 15 ? "pass" : idleTime <= 25 ? "marginal" : "fail", description: "Percentage of time instruments are stationary" },
-    { name: "Movement Count", value: movements, unit: "moves", benchmark: 55, status: movements <= 55 ? "pass" : movements <= 70 ? "marginal" : "fail", description: "Total discrete instrument movements" },
-    { name: "Tremor Index", value: tremor, unit: "mm", benchmark: 0.5, status: tremor <= 0.5 ? "pass" : tremor <= 0.8 ? "marginal" : "fail", description: "Average hand oscillation amplitude" },
-  ];
-
-  const avgGoals = goals.reduce((s, g) => s + g.score, 0) / goals.length;
-  const passCount = metrics.filter(m => m.status === "pass").length;
-  const overallPass = avgGoals >= 3.0 && passCount >= 4;
-  const overallScore = Math.round((avgGoals / 5) * 100);
-
-  return { goals, metrics, overallPass, overallScore };
+function statusFor(key: string, value: number): "pass" | "marginal" | "fail" {
+  const thresholds: Record<string, [number, number, boolean]> = {
+    path_length_px:   [6000, 9000, true],    // lower better
+    motion_economy:   [0.03, 0.01, false],   // higher better
+    idle_fraction:    [0.45, 0.6, true],
+    movement_count:   [80, 150, true],
+    smoothness_sparc: [-200, -300, false],    // closer to 0 better
+    tremor_index_px:  [10, 15, true],
+  };
+  const t = thresholds[key];
+  if (!t) return "marginal";
+  const [good, bad, lowerBetter] = t;
+  if (lowerBetter) return value <= good ? "pass" : value <= bad ? "marginal" : "fail";
+  return value >= good ? "pass" : value >= bad ? "marginal" : "fail";
 }
 
 function StatusDot({ status }: { status: "pass" | "marginal" | "fail" }) {
@@ -77,12 +69,28 @@ function StatusDot({ status }: { status: "pass" | "marginal" | "fail" }) {
   );
 }
 
-export function SkillsTab({ events, procedureId }: Props) {
-  const { goals, metrics, overallPass, overallScore } = useMemo(() => generateScores(events), [events]);
+const SOURCE_BADGES: Record<string, string> = {
+  optical_flow: "text-blue-400 bg-blue-500/10 border-blue-500/20",
+  foundation_pose: "text-violet-400 bg-violet-500/10 border-violet-500/20",
+};
 
+export function SkillsTab({ events, procedureId }: Props) {
+  const [data, setData] = useState<KinematicsData | null>(null);
+
+  useEffect(() => {
+    fetch("/data/kinematics.json")
+      .then(r => r.json())
+      .then(setData)
+      .catch(() => setData(null));
+  }, []);
+
+  if (!data) {
+    return <div className="text-zinc-500">Loading kinematics data…</div>;
+  }
+
+  const { instruments, goals, overall_score } = data;
+  const overallPass = overall_score >= 60;
   const radarData = goals.map(g => ({ domain: g.domain, score: g.score, fullMark: 5 }));
-  const passCount = metrics.filter(m => m.status === "pass").length;
-  const marginalCount = metrics.filter(m => m.status === "marginal").length;
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -95,7 +103,7 @@ export function SkillsTab({ events, procedureId }: Props) {
               ? "bg-gradient-to-b from-emerald-400 to-teal-400 bg-clip-text text-transparent"
               : "bg-gradient-to-b from-red-400 to-rose-400 bg-clip-text text-transparent"
           )}>
-            {overallScore}
+            {overall_score}
           </div>
           <div className="text-sm text-zinc-400 mt-1">GOALS Score</div>
           <div className={cn(
@@ -134,7 +142,7 @@ export function SkillsTab({ events, procedureId }: Props) {
             const color = g.score >= 4 ? "from-emerald-500 to-teal-400" : g.score >= 3 ? "from-amber-500 to-yellow-400" : "from-red-500 to-rose-400";
             return (
               <div key={g.domain} className="flex items-center gap-4">
-                <div className="w-40 shrink-0">
+                <div className="w-44 shrink-0">
                   <div className="text-sm text-white font-medium">{g.domain}</div>
                 </div>
                 <div className="flex-1 h-3 bg-zinc-800/80 rounded-full overflow-hidden">
@@ -150,40 +158,85 @@ export function SkillsTab({ events, procedureId }: Props) {
         </div>
       </div>
 
-      {/* Kinematic Metrics */}
-      <div>
-        <div className="flex items-center gap-4 mb-4">
-          <h3 className="text-sm font-semibold text-white uppercase tracking-wider">Instrument Kinematics</h3>
-          <div className="flex items-center gap-3 text-xs text-zinc-500">
-            <span className="flex items-center gap-1"><StatusDot status="pass" /> Pass ({passCount})</span>
-            <span className="flex items-center gap-1"><StatusDot status="marginal" /> Marginal ({marginalCount})</span>
-            <span className="flex items-center gap-1"><StatusDot status="fail" /> Fail ({metrics.length - passCount - marginalCount})</span>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-4 stagger-children">
-          {metrics.map((m) => (
-            <div key={m.name} className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-white">{m.name}</span>
-                <StatusDot status={m.status} />
+      {/* Per-Instrument Kinematics */}
+      {instruments.map((inst) => {
+        const metrics = METRIC_KEYS.map(m => ({
+          ...m,
+          value: inst[m.key] as number,
+          status: statusFor(m.key as string, inst[m.key] as number),
+        }));
+        const passCount = metrics.filter(m => m.status === "pass").length;
+        const marginalCount = metrics.filter(m => m.status === "marginal").length;
+
+        return (
+          <div key={inst.name}>
+            <div className="flex items-center gap-4 mb-4">
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider">{inst.name}</h3>
+              <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-medium border", SOURCE_BADGES[inst.source] || "text-zinc-400 bg-zinc-800 border-zinc-700")}>
+                {inst.source === "optical_flow" ? "Optical Flow" : "FoundationPose"}
+              </span>
+              <span className="text-xs text-zinc-600">{inst.frames} frames · {inst.duration_seconds}s</span>
+              <div className="flex items-center gap-3 text-xs text-zinc-500 ml-auto">
+                <span className="flex items-center gap-1"><StatusDot status="pass" /> {passCount}</span>
+                <span className="flex items-center gap-1"><StatusDot status="marginal" /> {marginalCount}</span>
+                <span className="flex items-center gap-1"><StatusDot status="fail" /> {metrics.length - passCount - marginalCount}</span>
               </div>
-              <div className="flex items-baseline gap-1">
-                <span className={cn(
-                  "text-3xl font-bold tabular-nums",
-                  m.status === "pass" ? "text-emerald-400" : m.status === "marginal" ? "text-amber-400" : "text-red-400"
-                )}>
-                  {m.value}
-                </span>
-                <span className="text-sm text-zinc-500">{m.unit}</span>
-              </div>
-              <div className="mt-2 flex items-center gap-2">
-                <span className="text-xs text-zinc-600">Benchmark: {m.benchmark} {m.unit}</span>
-              </div>
-              <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">{m.description}</p>
             </div>
-          ))}
-        </div>
-      </div>
+            <div className="grid grid-cols-3 gap-4 stagger-children">
+              {metrics.map((m) => (
+                <div key={m.key as string} className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-white">{m.label}</span>
+                    <StatusDot status={m.status} />
+                  </div>
+                  <div className="flex items-baseline gap-1">
+                    <span className={cn(
+                      "text-3xl font-bold tabular-nums",
+                      m.status === "pass" ? "text-emerald-400" : m.status === "marginal" ? "text-amber-400" : "text-red-400"
+                    )}>
+                      {m.key === "idle_fraction" ? Math.round(m.value * 100) : typeof m.value === "number" ? (m.value > 100 ? Math.round(m.value) : m.value) : m.value}
+                    </span>
+                    <span className="text-sm text-zinc-500">{m.key === "idle_fraction" ? "%" : m.unit}</span>
+                  </div>
+                  <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">{m.description}</p>
+                </div>
+              ))}
+
+              {/* Bimanual extras for tweezer */}
+              {inst.bimanual_correlation !== undefined && (
+                <>
+                  <div className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Bimanual Correlation</span>
+                      <StatusDot status={inst.bimanual_correlation > 0.5 ? "pass" : inst.bimanual_correlation > 0.2 ? "marginal" : "fail"} />
+                    </div>
+                    <div className="flex items-baseline gap-1">
+                      <span className={cn("text-3xl font-bold tabular-nums", inst.bimanual_correlation > 0.5 ? "text-emerald-400" : "text-amber-400")}>
+                        {inst.bimanual_correlation}
+                      </span>
+                      <span className="text-sm text-zinc-500">r</span>
+                    </div>
+                    <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">Velocity correlation between two tips (higher = more coordinated)</p>
+                  </div>
+                  <div className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Tip Spread σ</span>
+                      <StatusDot status={inst.tip_spread_std_px! < 15 ? "pass" : inst.tip_spread_std_px! < 30 ? "marginal" : "fail"} />
+                    </div>
+                    <div className="flex items-baseline gap-1">
+                      <span className={cn("text-3xl font-bold tabular-nums", inst.tip_spread_std_px! < 15 ? "text-emerald-400" : "text-amber-400")}>
+                        {inst.tip_spread_std_px}
+                      </span>
+                      <span className="text-sm text-zinc-500">px</span>
+                    </div>
+                    <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">Std deviation of inter-tip distance (lower = more consistent grip)</p>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        );
+      })}
 
       {/* Data Source Note */}
       <div className="gradient-border p-4 flex items-start gap-3">
@@ -191,14 +244,14 @@ export function SkillsTab({ events, procedureId }: Props) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <div>
-          <div className="text-sm text-white font-medium">Powered by FoundationPose Tracking</div>
+          <div className="text-sm text-white font-medium">Computed from Real Tracking Data</div>
           <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
-            Kinematic metrics are derived from 6DoF instrument pose estimation using FoundationPose.
-            GOALS/OSATS domain scores are computed by mapping tracking parameters (path length, smoothness, tremor) to validated surgical skill assessment frameworks.
+            Kinematic metrics are computed from per-frame instrument trajectories — optical flow tip tracking ({instruments.filter(i => i.source === "optical_flow").length} instruments)
+            {instruments.some(i => i.source === "foundation_pose") && ` and FoundationPose 6DoF centroid estimation (${instruments.filter(i => i.source === "foundation_pose").length} instrument)`}.
+            GOALS domain scores are mapped from aggregate kinematics using validated surgical skill assessment heuristics.
           </p>
         </div>
       </div>
     </div>
   );
 }
-
