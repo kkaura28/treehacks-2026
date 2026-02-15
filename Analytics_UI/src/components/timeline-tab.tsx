@@ -2,7 +2,7 @@
 import { useRef, useMemo } from "react";
 import type { ObservedEvent, ProcedureNode, DeviationReport } from "@/lib/types";
 import { cn, formatTimestamp } from "@/lib/utils";
-import { ConfidenceBar, PhaseBadge } from "./badges";
+import { PhaseBadge } from "./badges";
 
 interface Props {
   events: ObservedEvent[];
@@ -97,17 +97,6 @@ export function TimelineTab({ events, nodes, report }: Props) {
                             <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                           )}
                         </div>
-                        <span className={cn(
-                          "px-2 py-0.5 rounded-full text-xs border",
-                          ev.metadata?.original_source === "gemini"
-                            ? "bg-teal-500/10 text-teal-400 border-teal-500/20"
-                            : "bg-zinc-800 text-zinc-400 border-zinc-700"
-                        )}>
-                          {ev.metadata?.original_source || ev.source}
-                        </span>
-                      </div>
-                      <div className="mt-2">
-                        <ConfidenceBar value={ev.confidence} label="Confidence" />
                       </div>
                       {observation && (
                         <p className="text-xs text-zinc-500 mt-2 italic leading-relaxed">{observation}</p>
