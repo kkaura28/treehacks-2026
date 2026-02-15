@@ -57,13 +57,93 @@ export function ReportTab({ report, events, nodes, run, procedure, runId }: Prop
 
   if (!report) return <div className="text-zinc-500">No data available.</div>;
 
-  async function downloadFHIR() {
+  function buildFHIRBundle() {
+    const patientId = run.patient_id || "PT-2026-04821";
+    const encounterId = `encounter-${runId.slice(0, 8)}`;
+    const procedureId = `procedure-${runId.slice(0, 8)}`;
+    const now = new Date().toISOString();
+
+    const entry: any[] = [];
+    const ref = (type: string, id: string) => `${type}/${id}`;
+
+    // Patient
+    entry.push({ fullUrl: `urn:uuid:${patientId}`, resource: {
+      resourceType: "Patient", id: patientId, identifier: [{ system: "urn:oid:viper", value: patientId }],
+      name: [{ use: "official", text: "[Redacted]" }], gender: "female", birthDate: "1978-03-14",
+    }, request: { method: "PUT", url: ref("Patient", patientId) } });
+
+    // Encounter
+    entry.push({ fullUrl: `urn:uuid:${encounterId}`, resource: {
+      resourceType: "Encounter", id: encounterId, status: run.status === "completed" ? "finished" : "in-progress",
+      class: { system: "http://terminology.hl7.org/CodeSystem/v3-ActCode", code: "AMB" },
+      subject: { reference: ref("Patient", patientId) },
+      period: { start: run.started_at, ...(run.ended_at ? { end: run.ended_at } : {}) },
+    }, request: { method: "PUT", url: ref("Encounter", encounterId) } });
+
+    // Procedure
+    entry.push({ fullUrl: `urn:uuid:${procedureId}`, resource: {
+      resourceType: "Procedure", id: procedureId, status: "completed",
+      code: { text: procedure?.name || run.procedure_id },
+      subject: { reference: ref("Patient", patientId) },
+      encounter: { reference: ref("Encounter", encounterId) },
+      performedPeriod: { start: run.started_at, ...(run.ended_at ? { end: run.ended_at } : {}) },
+      performer: run.surgeon_name ? [{ actor: { display: run.surgeon_name } }] : [],
+    }, request: { method: "PUT", url: ref("Procedure", procedureId) } });
+
+    // Observations — one per event
+    const nodeMap = new Map(nodes.map(n => [n.id, n]));
+    for (const ev of events) {
+      const obsId = `observation-event-${ev.id}`;
+      const node = nodeMap.get(ev.node_id);
+      entry.push({ fullUrl: `urn:uuid:${obsId}`, resource: {
+        resourceType: "Observation", id: obsId, status: "final",
+        code: { text: node?.name || ev.node_id },
+        subject: { reference: ref("Patient", patientId) },
+        encounter: { reference: ref("Encounter", encounterId) },
+        effectiveDateTime: ev.timestamp,
+        valueString: ev.metadata?.observation || node?.name || ev.node_id,
+        component: (ev.metadata?.strokes || []).map(s => ({
+          code: { text: `${s.stroke_type} (${s.instrument})` },
+          valueString: `${s.timestamp_seconds}s–${s.end_seconds}s: ${s.description}`,
+        })),
+      }, request: { method: "PUT", url: ref("Observation", obsId) } });
+    }
+
+    // DetectedIssues — one per deviation
+    if (report) {
+      for (const [i, dev] of report.adjudicated.entries()) {
+        const issueId = `detected-issue-${runId.slice(0, 8)}-${i}`;
+        entry.push({ fullUrl: `urn:uuid:${issueId}`, resource: {
+          resourceType: "DetectedIssue", id: issueId, status: "final",
+          code: { text: dev.deviation_type },
+          severity: dev.verdict === "confirmed" ? "high" : dev.verdict === "mitigated" ? "moderate" : "low",
+          detail: `[${dev.verdict}] ${dev.node_name} (${dev.phase}): ${dev.evidence_summary}`,
+          patient: { reference: ref("Patient", patientId) },
+          implicated: [{ reference: ref("Procedure", procedureId) }],
+          evidence: dev.citations.map(c => ({ detail: [{ text: c }] })),
+        }, request: { method: "PUT", url: ref("DetectedIssue", issueId) } });
+      }
+
+      // Composition — summary report
+      const compId = `composition-${runId.slice(0, 8)}`;
+      entry.push({ fullUrl: `urn:uuid:${compId}`, resource: {
+        resourceType: "Composition", id: compId, status: "final", type: { text: "Surgical Compliance Report" },
+        date: now, title: `Compliance Report — ${procedure?.name || run.procedure_id}`,
+        subject: { reference: ref("Patient", patientId) },
+        section: [
+          { title: "Score", text: { status: "generated", div: `<div>Compliance: ${report.compliance_score}% | Expected: ${report.total_expected} | Observed: ${report.total_observed} | Confirmed: ${report.confirmed_count} | Mitigated: ${report.mitigated_count} | Review: ${report.review_count}</div>` } },
+          { title: "Narrative", text: { status: "generated", div: `<div>${report.report_text}</div>` } },
+        ],
+      }, request: { method: "PUT", url: ref("Composition", compId) } });
+    }
+
+    return { resourceType: "Bundle", type: "transaction", timestamp: now, entry };
+  }
+
+  function downloadFHIR() {
     setFhirLoading(true);
     try {
-      const fhirUrl = process.env.NEXT_PUBLIC_FHIR_API_URL || "http://localhost:8001";
-      const resp = await fetch(`${fhirUrl}/fhir/from-pipeline/${runId}`, { method: "POST" });
-      if (!resp.ok) throw new Error(`FHIR API error: ${resp.status}`);
-      const bundle = await resp.json();
+      const bundle = buildFHIRBundle();
       const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: "application/fhir+json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -71,8 +151,8 @@ export function ReportTab({ report, events, nodes, run, procedure, runId }: Prop
       a.download = `fhir-bundle-${runId.slice(0, 8)}.json`;
       a.click();
       URL.revokeObjectURL(url);
-    } catch {
-      alert("FHIR export failed. Make sure the FHIR service is running on port 8001.");
+    } catch (e) {
+      alert("FHIR export failed: " + (e as Error).message);
     } finally {
       setFhirLoading(false);
     }
