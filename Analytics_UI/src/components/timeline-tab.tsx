@@ -25,6 +25,7 @@ const STROKE_COLORS: Record<string, string> = {
 
 export function TimelineTab({ events, nodes, report }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const tipVideoRef = useRef<HTMLVideoElement>(null);
   const [expandedEvents, setExpandedEvents] = useState<Set<number>>(new Set());
 
   const nodeMap = useMemo(() => new Map(nodes.map(n => [n.id, n])), [nodes]);
@@ -35,6 +36,7 @@ export function TimelineTab({ events, nodes, report }: Props) {
 
   const videoPath = events[0]?.metadata?.video_path;
   const hasVideo = !!videoPath;
+  const hasTipVideo = videoPath === "surgery_video.mp4";
 
   const grouped = useMemo(() => {
     const groups: Record<string, ObservedEvent[]> = {};
@@ -53,10 +55,8 @@ export function TimelineTab({ events, nodes, report }: Props) {
   }, [events, nodes]);
 
   function seekTo(seconds: number) {
-    if (videoRef.current) {
-      videoRef.current.currentTime = seconds;
-      videoRef.current.play();
-    }
+    if (videoRef.current) videoRef.current.currentTime = seconds;
+    if (tipVideoRef.current) tipVideoRef.current.currentTime = seconds;
   }
 
   function toggleExpand(eventId: number) {
@@ -72,16 +72,32 @@ export function TimelineTab({ events, nodes, report }: Props) {
     <div className="grid grid-cols-12 gap-6 animate-fade-in">
       {hasVideo && (
         <div className="col-span-5">
-          <div className="sticky top-8 gradient-border overflow-hidden glow-teal">
-            <video
-              ref={videoRef}
-              controls
-              className="w-full aspect-video bg-black"
-              src={`/videos/${videoPath}`}
-            >
-              <source src={`/videos/${videoPath}`} type="video/mp4" />
-            </video>
-            <div className="p-3 text-xs text-zinc-500">
+          <div className="sticky top-8 space-y-3">
+            <div className="gradient-border overflow-hidden glow-teal">
+              <div className="px-3 pt-2 pb-1 text-[10px] font-medium text-zinc-500 uppercase tracking-wider">Surgery Feed</div>
+              <video
+                ref={videoRef}
+                controls
+                className="w-full aspect-video bg-black"
+                src={`/videos/${videoPath}`}
+              >
+                <source src={`/videos/${videoPath}`} type="video/mp4" />
+              </video>
+            </div>
+            {hasTipVideo && (
+              <div className="gradient-border overflow-hidden">
+                <div className="px-3 pt-2 pb-1 text-[10px] font-medium text-zinc-500 uppercase tracking-wider">Instrument Tip Tracking</div>
+                <video
+                  ref={tipVideoRef}
+                  controls
+                  className="w-full aspect-video bg-black"
+                  src="/videos/surgery_video_tip.mp4"
+                >
+                  <source src="/videos/surgery_video_tip.mp4" type="video/mp4" />
+                </video>
+              </div>
+            )}
+            <div className="text-xs text-zinc-500 px-1">
               Click events to seek video to that timestamp
             </div>
           </div>
