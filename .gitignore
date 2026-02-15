@@ -1,5 +1,8 @@
 # Created files
 
+# Large data (GitHub 100 MB limit)
+parametric_data/**/depth.npz
+
 parametric_data/chobani
 parametric_data/redbull
 parametric_data/videos
