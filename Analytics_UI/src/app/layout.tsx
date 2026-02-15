@@ -4,7 +4,7 @@ import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { // This is the title of the page
   title: "Viper",
   description: "Post-operative compliance analysis dashboard",
 };
