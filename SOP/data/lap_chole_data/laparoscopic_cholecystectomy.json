@@ -1,0 +1,284 @@
+{
+  "procedure": {
+    "id": "laparoscopic_cholecystectomy",
+    "name": "Laparoscopic Cholecystectomy",
+    "version": "1.0",
+    "source_documents": [
+      "WHO Surgical Safety Checklist (2009)",
+      "WJGS-11-62: Laparoscopic cholecystectomy operative technique",
+      "jls406: The Critical View of Safety in Laparoscopic Cholecystectomy"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "who_sign_in",
+      "name": "WHO Sign In",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["anesthesiologist", "nurse", "surgeon"],
+      "required_tools": ["who_checklist"],
+      "preconditions": []
+    },
+    {
+      "id": "general_anesthesia",
+      "name": "Induction of General Anesthesia",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["anesthesiologist"],
+      "required_tools": ["anesthesia_machine", "endotracheal_tube", "iv_access"],
+      "preconditions": ["who_sign_in"]
+    },
+    {
+      "id": "patient_positioning",
+      "name": "Patient Positioning (Supine, Reverse Trendelenburg)",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon", "nurse"],
+      "required_tools": ["operating_table"],
+      "preconditions": ["general_anesthesia"]
+    },
+    {
+      "id": "who_time_out",
+      "name": "WHO Time Out",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon", "anesthesiologist", "nurse"],
+      "required_tools": ["who_checklist"],
+      "preconditions": ["patient_positioning"]
+    },
+    {
+      "id": "establish_pneumoperitoneum",
+      "name": "Establish Pneumoperitoneum",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon"],
+      "required_tools": ["veress_needle", "co2_insufflator"],
+      "preconditions": ["who_time_out"]
+    },
+    {
+      "id": "trocar_placement",
+      "name": "Trocar Placement",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon", "assistant"],
+      "required_tools": ["trocars_10mm", "trocars_5mm", "laparoscope"],
+      "preconditions": ["establish_pneumoperitoneum"]
+    },
+    {
+      "id": "diagnostic_laparoscopy",
+      "name": "Diagnostic Laparoscopy",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon"],
+      "required_tools": ["laparoscope", "camera"],
+      "preconditions": ["trocar_placement"]
+    },
+    {
+      "id": "gallbladder_retraction",
+      "name": "Gallbladder Fundus Retraction",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["assistant"],
+      "required_tools": ["grasper"],
+      "preconditions": ["diagnostic_laparoscopy"]
+    },
+    {
+      "id": "calot_triangle_dissection",
+      "name": "Calot's Triangle Dissection",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["dissector", "hook_cautery", "irrigation_suction"],
+      "preconditions": ["gallbladder_retraction"]
+    },
+    {
+      "id": "critical_view_of_safety",
+      "name": "Critical View of Safety",
+      "phase": "safety",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["dissector", "laparoscope"],
+      "preconditions": ["calot_triangle_dissection"]
+    },
+    {
+      "id": "clip_cystic_artery",
+      "name": "Clip Cystic Artery",
+      "phase": "division",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["clip_applier", "clips"],
+      "preconditions": ["critical_view_of_safety"]
+    },
+    {
+      "id": "clip_cystic_duct",
+      "name": "Clip Cystic Duct",
+      "phase": "division",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["clip_applier", "clips"],
+      "preconditions": ["critical_view_of_safety"]
+    },
+    {
+      "id": "divide_cystic_artery",
+      "name": "Divide Cystic Artery",
+      "phase": "division",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["laparoscopic_scissors"],
+      "preconditions": ["clip_cystic_artery"]
+    },
+    {
+      "id": "divide_cystic_duct",
+      "name": "Divide Cystic Duct",
+      "phase": "division",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["laparoscopic_scissors"],
+      "preconditions": ["clip_cystic_duct"]
+    },
+    {
+      "id": "gallbladder_dissection_from_liver_bed",
+      "name": "Gallbladder Dissection from Liver Bed",
+      "phase": "removal",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon"],
+      "required_tools": ["hook_cautery", "dissector"],
+      "preconditions": ["divide_cystic_artery", "divide_cystic_duct"]
+    },
+    {
+      "id": "hemostasis_check",
+      "name": "Hemostasis Check of Liver Bed and Cystic Pedicle",
+      "phase": "safety",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["laparoscope", "irrigation_suction"],
+      "preconditions": ["gallbladder_dissection_from_liver_bed"]
+    },
+    {
+      "id": "specimen_extraction",
+      "name": "Specimen Extraction via Umbilical Port",
+      "phase": "removal",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon"],
+      "required_tools": ["retrieval_bag"],
+      "preconditions": ["hemostasis_check"]
+    },
+    {
+      "id": "desufflation",
+      "name": "Desufflation and Trocar Removal",
+      "phase": "closure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon"],
+      "required_tools": ["trocars_10mm", "trocars_5mm"],
+      "preconditions": ["specimen_extraction"]
+    },
+    {
+      "id": "port_site_closure",
+      "name": "Port Site Closure",
+      "phase": "closure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["surgeon"],
+      "required_tools": ["sutures", "skin_closure_device"],
+      "preconditions": ["desufflation"]
+    },
+    {
+      "id": "who_sign_out",
+      "name": "WHO Sign Out",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["surgeon", "anesthesiologist", "nurse"],
+      "required_tools": ["who_checklist"],
+      "preconditions": ["port_site_closure"]
+    },
+    {
+      "id": "bleeding_control",
+      "name": "Bleeding Control",
+      "phase": "complication",
+      "mandatory": false,
+      "optional": true,
+      "safety_critical": true,
+      "actors": ["surgeon"],
+      "required_tools": ["clip_applier", "cautery", "irrigation_suction", "sutures"],
+      "preconditions": ["calot_triangle_dissection"]
+    },
+    {
+      "id": "conversion_to_open",
+      "name": "Conversion to Open Cholecystectomy",
+      "phase": "complication",
+      "mandatory": false,
+      "optional": true,
+      "safety_critical": true,
+      "actors": ["surgeon", "assistant", "nurse"],
+      "required_tools": ["open_surgery_tray", "retractors", "sutures"],
+      "preconditions": ["bleeding_control"]
+    }
+  ],
+  "edges": [
+    { "from": "who_sign_in", "to": "general_anesthesia", "type": "sequential" },
+    { "from": "general_anesthesia", "to": "patient_positioning", "type": "sequential" },
+    { "from": "patient_positioning", "to": "who_time_out", "type": "sequential" },
+    { "from": "who_time_out", "to": "establish_pneumoperitoneum", "type": "sequential" },
+    { "from": "establish_pneumoperitoneum", "to": "trocar_placement", "type": "sequential" },
+    { "from": "trocar_placement", "to": "diagnostic_laparoscopy", "type": "sequential" },
+    { "from": "diagnostic_laparoscopy", "to": "gallbladder_retraction", "type": "sequential" },
+    { "from": "gallbladder_retraction", "to": "calot_triangle_dissection", "type": "sequential" },
+    { "from": "calot_triangle_dissection", "to": "critical_view_of_safety", "type": "sequential" },
+    { "from": "critical_view_of_safety", "to": "clip_cystic_artery", "type": "sequential" },
+    { "from": "critical_view_of_safety", "to": "clip_cystic_duct", "type": "sequential" },
+    { "from": "clip_cystic_artery", "to": "divide_cystic_artery", "type": "sequential" },
+    { "from": "clip_cystic_duct", "to": "divide_cystic_duct", "type": "sequential" },
+    { "from": "divide_cystic_artery", "to": "gallbladder_dissection_from_liver_bed", "type": "sequential" },
+    { "from": "divide_cystic_duct", "to": "gallbladder_dissection_from_liver_bed", "type": "sequential" },
+    { "from": "gallbladder_dissection_from_liver_bed", "to": "hemostasis_check", "type": "sequential" },
+    { "from": "hemostasis_check", "to": "specimen_extraction", "type": "sequential" },
+    { "from": "specimen_extraction", "to": "desufflation", "type": "sequential" },
+    { "from": "desufflation", "to": "port_site_closure", "type": "sequential" },
+    { "from": "port_site_closure", "to": "who_sign_out", "type": "sequential" },
+    { "from": "calot_triangle_dissection", "to": "bleeding_control", "type": "conditional" },
+    { "from": "gallbladder_dissection_from_liver_bed", "to": "bleeding_control", "type": "conditional" },
+    { "from": "bleeding_control", "to": "conversion_to_open", "type": "conditional" },
+    { "from": "bleeding_control", "to": "hemostasis_check", "type": "conditional" },
+    { "from": "conversion_to_open", "to": "hemostasis_check", "type": "sequential" }
+  ]
+}
+

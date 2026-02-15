@@ -1,0 +1,209 @@
+{
+  "procedure": {
+    "id": "incision_drainage_abscess",
+    "name": "Incision and Drainage of Abscess",
+    "version": "1.0",
+    "source_documents": [
+      "WHO Surgical Safety Checklist (2009)",
+      "1472-6920-8-38: Teaching incision and drainage — BMC Medical Education",
+      "2025 Handout: Incision and Drainage Technique"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "patient_identification",
+      "name": "Patient Identification and Consent",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["physician", "nurse"],
+      "required_tools": ["consent_form", "patient_wristband"],
+      "preconditions": []
+    },
+    {
+      "id": "allergy_check",
+      "name": "Allergy Check (Anesthetic and Antibiotic Allergies)",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["physician", "nurse"],
+      "required_tools": ["patient_chart"],
+      "preconditions": ["patient_identification"]
+    },
+    {
+      "id": "equipment_preparation",
+      "name": "Equipment and Supplies Preparation",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["nurse"],
+      "required_tools": ["sterile_tray", "scalpel_11_blade", "hemostats", "packing_gauze", "irrigation_syringe", "wound_culture_swab", "local_anesthetic", "syringe_needle", "sterile_gloves", "drape"],
+      "preconditions": ["allergy_check"]
+    },
+    {
+      "id": "site_marking",
+      "name": "Site Identification and Marking",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["physician"],
+      "required_tools": ["skin_marker"],
+      "preconditions": ["equipment_preparation"]
+    },
+    {
+      "id": "sterile_preparation",
+      "name": "Sterile Skin Preparation",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["physician"],
+      "required_tools": ["chlorhexidine_or_betadine", "sterile_drape", "sterile_gloves"],
+      "preconditions": ["site_marking"]
+    },
+    {
+      "id": "local_anesthesia",
+      "name": "Local Anesthesia Administration",
+      "phase": "setup",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["physician"],
+      "required_tools": ["lidocaine_with_epinephrine", "syringe", "needle_25g"],
+      "preconditions": ["sterile_preparation"]
+    },
+    {
+      "id": "incision",
+      "name": "Incision Over Abscess (Along Skin Lines)",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["physician"],
+      "required_tools": ["scalpel_11_blade"],
+      "preconditions": ["local_anesthesia"]
+    },
+    {
+      "id": "drainage_expression",
+      "name": "Drainage and Expression of Purulent Material",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["physician"],
+      "required_tools": ["hemostats", "gauze"],
+      "preconditions": ["incision"]
+    },
+    {
+      "id": "loculation_breakdown",
+      "name": "Loculation Breakdown with Hemostat",
+      "phase": "exposure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["physician"],
+      "required_tools": ["hemostats"],
+      "preconditions": ["drainage_expression"]
+    },
+    {
+      "id": "wound_irrigation",
+      "name": "Wound Irrigation with Saline",
+      "phase": "safety",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["physician"],
+      "required_tools": ["irrigation_syringe", "normal_saline"],
+      "preconditions": ["loculation_breakdown"]
+    },
+    {
+      "id": "wound_culture",
+      "name": "Wound Culture Collection",
+      "phase": "safety",
+      "mandatory": false,
+      "optional": true,
+      "safety_critical": false,
+      "actors": ["physician"],
+      "required_tools": ["culture_swab"],
+      "preconditions": ["drainage_expression"]
+    },
+    {
+      "id": "wound_packing",
+      "name": "Wound Packing with Gauze Strip",
+      "phase": "closure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["physician"],
+      "required_tools": ["packing_gauze_strip", "hemostats"],
+      "preconditions": ["wound_irrigation"]
+    },
+    {
+      "id": "external_dressing",
+      "name": "External Dressing Application",
+      "phase": "closure",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": false,
+      "actors": ["physician", "nurse"],
+      "required_tools": ["gauze_pad", "adhesive_tape"],
+      "preconditions": ["wound_packing"]
+    },
+    {
+      "id": "discharge_instructions",
+      "name": "Discharge Instructions and Follow-Up",
+      "phase": "checklist",
+      "mandatory": true,
+      "optional": false,
+      "safety_critical": true,
+      "actors": ["physician", "nurse"],
+      "required_tools": ["discharge_paperwork"],
+      "preconditions": ["external_dressing"]
+    },
+    {
+      "id": "uncontrolled_bleeding",
+      "name": "Uncontrolled Bleeding Management",
+      "phase": "complication",
+      "mandatory": false,
+      "optional": true,
+      "safety_critical": true,
+      "actors": ["physician"],
+      "required_tools": ["pressure_dressing", "cautery", "sutures"],
+      "preconditions": ["incision"]
+    },
+    {
+      "id": "deep_tissue_extension",
+      "name": "Referral for Deep Tissue Extension",
+      "phase": "complication",
+      "mandatory": false,
+      "optional": true,
+      "safety_critical": true,
+      "actors": ["physician"],
+      "required_tools": ["referral_form"],
+      "preconditions": ["loculation_breakdown"]
+    }
+  ],
+  "edges": [
+    { "from": "patient_identification", "to": "allergy_check", "type": "sequential" },
+    { "from": "allergy_check", "to": "equipment_preparation", "type": "sequential" },
+    { "from": "equipment_preparation", "to": "site_marking", "type": "sequential" },
+    { "from": "site_marking", "to": "sterile_preparation", "type": "sequential" },
+    { "from": "sterile_preparation", "to": "local_anesthesia", "type": "sequential" },
+    { "from": "local_anesthesia", "to": "incision", "type": "sequential" },
+    { "from": "incision", "to": "drainage_expression", "type": "sequential" },
+    { "from": "drainage_expression", "to": "loculation_breakdown", "type": "sequential" },
+    { "from": "drainage_expression", "to": "wound_culture", "type": "conditional" },
+    { "from": "loculation_breakdown", "to": "wound_irrigation", "type": "sequential" },
+    { "from": "wound_irrigation", "to": "wound_packing", "type": "sequential" },
+    { "from": "wound_packing", "to": "external_dressing", "type": "sequential" },
+    { "from": "external_dressing", "to": "discharge_instructions", "type": "sequential" },
+    { "from": "incision", "to": "uncontrolled_bleeding", "type": "conditional" },
+    { "from": "uncontrolled_bleeding", "to": "wound_irrigation", "type": "conditional" },
+    { "from": "loculation_breakdown", "to": "deep_tissue_extension", "type": "conditional" }
+  ]
+}
+
