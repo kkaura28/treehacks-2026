@@ -15,3 +15,5 @@ git submodule update --init --recursive
 ```
 
 Then follow FoundationPose’s own setup (Docker or conda, weights, etc.) inside `FoundationPose/` — see `FoundationPose/readme.md`.
+
+**RTX 5090 / Blackwell (sm_120):** Use the `fp5090` conda env (Python 3.11 + PyTorch nightly cu128). From repo root: `conda activate fp5090`, then `cd FoundationPose && python run_demo.py`. The demo uses a Python fallback for rotation clustering by default to avoid a C++ extension crash on this setup.
