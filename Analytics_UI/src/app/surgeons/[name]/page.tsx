@@ -7,7 +7,15 @@ import type { ProcedureRun, DeviationReport, AdjudicatedDeviation } from "@/lib/
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine,
   BarChart, Bar, Cell, PieChart, Pie,
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
 } from "recharts";
+
+interface KinematicsData {
+  fps: number;
+  instruments: { name: string; frames: number; duration_seconds: number; unit: string; path_length: number; motion_economy: number; idle_fraction: number; movement_count: number; smoothness_sparc: number; tremor_index: number; mean_speed: number; max_speed: number; source: string; bimanual_correlation?: number }[];
+  goals: { domain: string; score: number; max: number }[];
+  overall_score: number;
+}
 
 interface SessionRow extends ProcedureRun {
   report?: DeviationReport;
@@ -20,6 +28,11 @@ export default function SurgeonDetail() {
 
   const [sessions, setSessions] = useState<SessionRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [kinematics, setKinematics] = useState<KinematicsData | null>(null);
+
+  useEffect(() => {
+    fetch("/data/kinematics.json").then(r => r.json()).then(setKinematics).catch(() => {});
+  }, []);
 
   useEffect(() => {
     async function load() {
@@ -269,6 +282,87 @@ export default function SurgeonDetail() {
           )}
         </div>
       </div>
+
+      {/* Motion Analytics */}
+      {kinematics && (
+        <div className="mt-6">
+          <div className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-4">Motion Analytics</div>
+          <div className="grid grid-cols-12 gap-6">
+            {/* GOALS Radar */}
+            <div className="col-span-5 gradient-border p-5">
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-xs text-zinc-500 uppercase tracking-wider font-medium">GOALS Assessment</div>
+                <div className={cn(
+                  "px-3 py-1 rounded-full text-xs font-semibold border",
+                  kinematics.overall_score >= 60
+                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                    : "bg-red-500/10 text-red-400 border-red-500/20"
+                )}>
+                  {kinematics.overall_score}/100
+                </div>
+              </div>
+              <ResponsiveContainer width="100%" height={240}>
+                <RadarChart data={kinematics.goals.map(g => ({ domain: g.domain, score: g.score, fullMark: 5 }))} cx="50%" cy="50%">
+                  <PolarGrid stroke="#27272a" />
+                  <PolarAngleAxis dataKey="domain" tick={{ fill: "#a1a1aa", fontSize: 10, dy: -6 }} />
+                  <PolarRadiusAxis angle={90} domain={[0, 5]} tick={{ fill: "#52525b", fontSize: 9 }} axisLine={false} />
+                  <Radar name="Score" dataKey="score" stroke="#2dd4bf" fill="#2dd4bf" fillOpacity={0.15} strokeWidth={2} />
+                </RadarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Per-instrument summary cards */}
+            <div className="col-span-7 space-y-3">
+              {kinematics.instruments.map((inst) => {
+                const srcColor = inst.source === "hamer" ? "text-pink-400 bg-pink-500/10 border-pink-500/20"
+                  : inst.source === "foundation_pose" ? "text-violet-400 bg-violet-500/10 border-violet-500/20"
+                  : "text-blue-400 bg-blue-500/10 border-blue-500/20";
+                const srcLabel = inst.source === "hamer" ? "HaMeR" : inst.source === "foundation_pose" ? "FoundationPose" : "Optical Flow";
+                const idle = Math.round(inst.idle_fraction * 100);
+                return (
+                  <div key={inst.name} className="gradient-border px-5 py-3.5 hover:bg-white/[0.02] transition-all">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-sm font-medium text-white">{inst.name}</span>
+                      <span className={cn("px-1.5 py-0.5 rounded-full text-[9px] font-medium border", srcColor)}>{srcLabel}</span>
+                      <span className="text-[10px] text-zinc-600 ml-auto">{inst.frames} frames · {inst.duration_seconds}s</span>
+                    </div>
+                    <div className="grid grid-cols-5 gap-3">
+                      <div>
+                        <div className="text-[10px] text-zinc-600">Path Length</div>
+                        <div className="text-sm font-semibold text-white tabular-nums">
+                          {inst.unit === "m" ? inst.path_length.toFixed(1) : Math.round(inst.path_length)}
+                          <span className="text-[10px] text-zinc-600 ml-0.5">{inst.unit}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-zinc-600">Idle</div>
+                        <div className={cn("text-sm font-semibold tabular-nums", idle > 50 ? "text-amber-400" : "text-emerald-400")}>{idle}%</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-zinc-600">Moves</div>
+                        <div className="text-sm font-semibold text-white tabular-nums">{inst.movement_count}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-zinc-600">Smoothness</div>
+                        <div className="text-sm font-semibold text-white tabular-nums">{Math.round(inst.smoothness_sparc)}</div>
+                      </div>
+                      <div>
+                        <div className="text-[10px] text-zinc-600">Tremor</div>
+                        <div className={cn("text-sm font-semibold tabular-nums",
+                          inst.unit === "m" ? (inst.tremor_index < 0.03 ? "text-emerald-400" : "text-amber-400") : (inst.tremor_index < 10 ? "text-emerald-400" : "text-amber-400")
+                        )}>
+                          {inst.unit === "m" ? inst.tremor_index.toFixed(3) : inst.tremor_index.toFixed(1)}
+                          <span className="text-[10px] text-zinc-600 ml-0.5">{inst.unit}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Session History Table */}
       <div className="mt-6">

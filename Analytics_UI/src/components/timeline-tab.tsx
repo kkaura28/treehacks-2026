@@ -101,9 +101,9 @@ export function TimelineTab({ events, nodes, report }: Props) {
                 <video
                   controls
                   className="w-full aspect-video bg-black"
-                  src="/videos/surgery_video_mask.mp4"
+                  src="/videos/surgery_video_mask_h264.mp4"
                 >
-                  <source src="/videos/surgery_video_mask.mp4" type="video/mp4" />
+                  <source src="/videos/surgery_video_mask_h264.mp4" type="video/mp4" />
                 </video>
               </div>
             </>)}
