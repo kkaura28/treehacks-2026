@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 import { cn } from "@/lib/utils";
 import type { ObservedEvent } from "@/lib/types";
@@ -20,43 +20,64 @@ interface InstrumentData {
   name: string;
   frames: number;
   duration_seconds: number;
-  path_length_px: number;
+  unit: string;            // "px" or "m"
+  path_length: number;
   motion_economy: number;
   idle_fraction: number;
   movement_count: number;
   smoothness_sparc: number;
-  tremor_index_px: number;
-  mean_speed_px_s: number;
-  max_speed_px_s: number;
+  tremor_index: number;
+  mean_speed: number;
+  max_speed: number;
   source: string;
   bimanual_correlation?: number;
-  tip_spread_std_px?: number;
+  tip_spread_std?: number;
+  hand_separation_std?: number;
   tip0?: InstrumentData;
   tip1?: InstrumentData;
 }
 
-const METRIC_KEYS: { key: keyof InstrumentData; label: string; unit: string; description: string; lowerBetter: boolean }[] = [
-  { key: "path_length_px", label: "Path Length", unit: "px", description: "Total distance traveled by instrument tip", lowerBetter: true },
-  { key: "motion_economy", label: "Motion Economy", unit: "ratio", description: "Straight-line / actual path (1.0 = perfect)", lowerBetter: false },
-  { key: "idle_fraction", label: "Idle Time", unit: "%", description: "Fraction of frames with negligible movement", lowerBetter: true },
-  { key: "movement_count", label: "Movement Count", unit: "moves", description: "Discrete movement segments detected", lowerBetter: true },
-  { key: "smoothness_sparc", label: "Smoothness", unit: "SPARC", description: "Spectral arc length — closer to 0 = smoother", lowerBetter: false },
-  { key: "tremor_index_px", label: "Tremor Index", unit: "px", description: "RMS high-frequency oscillation amplitude", lowerBetter: true },
+type MetricDef = { key: keyof InstrumentData; label: string; unitLabel: (u: string) => string; description: string; lowerBetter: boolean };
+
+const METRIC_KEYS: MetricDef[] = [
+  { key: "path_length", label: "Path Length", unitLabel: u => u, description: "Total distance traveled by tracked point", lowerBetter: true },
+  { key: "motion_economy", label: "Motion Economy", unitLabel: () => "ratio", description: "Straight-line / actual path (1.0 = perfect)", lowerBetter: false },
+  { key: "idle_fraction", label: "Idle Time", unitLabel: () => "%", description: "Fraction of frames with negligible movement", lowerBetter: true },
+  { key: "movement_count", label: "Movement Count", unitLabel: () => "moves", description: "Discrete movement segments detected", lowerBetter: true },
+  { key: "smoothness_sparc", label: "Smoothness", unitLabel: () => "SPARC", description: "Spectral arc length — closer to 0 = smoother", lowerBetter: false },
+  { key: "tremor_index", label: "Tremor Index", unitLabel: u => u, description: "RMS high-frequency oscillation amplitude", lowerBetter: true },
 ];
 
-function statusFor(key: string, value: number): "pass" | "marginal" | "fail" {
-  const thresholds: Record<string, [number, number, boolean]> = {
-    path_length_px:   [6000, 9000, true],    // lower better
-    motion_economy:   [0.03, 0.01, false],   // higher better
-    idle_fraction:    [0.45, 0.6, true],
-    movement_count:   [80, 150, true],
-    smoothness_sparc: [-200, -300, false],    // closer to 0 better
-    tremor_index_px:  [10, 15, true],
+function statusForMetric(key: string, value: number, unit: string): "pass" | "marginal" | "fail" {
+  if (unit === "m") {
+    // 3D hand thresholds (meters)
+    const t: Record<string, [number, number, boolean]> = {
+      path_length:     [40, 70, true],
+      motion_economy:  [0.03, 0.01, false],
+      idle_fraction:   [0.2, 0.4, true],
+      movement_count:  [20, 40, true],
+      smoothness_sparc:[-100, -200, false],
+      tremor_index:    [0.03, 0.06, true],
+    };
+    const th = t[key];
+    if (!th) return "marginal";
+    const [good, bad, lb] = th;
+    if (lb) return value <= good ? "pass" : value <= bad ? "marginal" : "fail";
+    return value >= good ? "pass" : value >= bad ? "marginal" : "fail";
+  }
+  // Pixel thresholds
+  const t: Record<string, [number, number, boolean]> = {
+    path_length:     [6000, 9000, true],
+    motion_economy:  [0.03, 0.01, false],
+    idle_fraction:   [0.45, 0.6, true],
+    movement_count:  [80, 150, true],
+    smoothness_sparc:[-200, -300, false],
+    tremor_index:    [10, 15, true],
   };
-  const t = thresholds[key];
-  if (!t) return "marginal";
-  const [good, bad, lowerBetter] = t;
-  if (lowerBetter) return value <= good ? "pass" : value <= bad ? "marginal" : "fail";
+  const th = t[key];
+  if (!th) return "marginal";
+  const [good, bad, lb] = th;
+  if (lb) return value <= good ? "pass" : value <= bad ? "marginal" : "fail";
   return value >= good ? "pass" : value >= bad ? "marginal" : "fail";
 }
 
@@ -72,7 +93,24 @@ function StatusDot({ status }: { status: "pass" | "marginal" | "fail" }) {
 const SOURCE_BADGES: Record<string, string> = {
   optical_flow: "text-blue-400 bg-blue-500/10 border-blue-500/20",
   foundation_pose: "text-violet-400 bg-violet-500/10 border-violet-500/20",
+  hamer: "text-pink-400 bg-pink-500/10 border-pink-500/20",
 };
+
+const SOURCE_LABELS: Record<string, string> = {
+  optical_flow: "Optical Flow",
+  foundation_pose: "FoundationPose",
+  hamer: "HaMeR",
+};
+
+function formatVal(val: number, key: string, unit: string): string {
+  if (key === "idle_fraction") return String(Math.round(val * 100));
+  if (unit === "m") {
+    if (key === "path_length") return val.toFixed(2);
+    if (key === "tremor_index" || key === "mean_speed" || key === "max_speed") return val.toFixed(4);
+  }
+  if (typeof val === "number") return val > 100 ? String(Math.round(val)) : String(val);
+  return String(val);
+}
 
 export function SkillsTab({ events, procedureId }: Props) {
   const [data, setData] = useState<KinematicsData | null>(null);
@@ -125,7 +163,7 @@ export function SkillsTab({ events, procedureId }: Props) {
           <ResponsiveContainer width="100%" height={280}>
             <RadarChart data={radarData} cx="50%" cy="50%">
               <PolarGrid stroke="#27272a" />
-              <PolarAngleAxis dataKey="domain" tick={{ fill: "#a1a1aa", fontSize: 11 }} />
+              <PolarAngleAxis dataKey="domain" tick={{ fill: "#a1a1aa", fontSize: 11, dy: -10 }} />
               <PolarRadiusAxis angle={90} domain={[0, 5]} tick={{ fill: "#52525b", fontSize: 10 }} axisLine={false} />
               <Radar name="Score" dataKey="score" stroke="#2dd4bf" fill="#2dd4bf" fillOpacity={0.15} strokeWidth={2} />
             </RadarChart>
@@ -160,10 +198,12 @@ export function SkillsTab({ events, procedureId }: Props) {
 
       {/* Per-Instrument Kinematics */}
       {instruments.map((inst) => {
+        const u = inst.unit;
         const metrics = METRIC_KEYS.map(m => ({
           ...m,
           value: inst[m.key] as number,
-          status: statusFor(m.key as string, inst[m.key] as number),
+          displayUnit: m.key === "idle_fraction" ? "%" : m.unitLabel(u),
+          status: statusForMetric(m.key as string, inst[m.key] as number, u),
         }));
         const passCount = metrics.filter(m => m.status === "pass").length;
         const marginalCount = metrics.filter(m => m.status === "marginal").length;
@@ -173,9 +213,12 @@ export function SkillsTab({ events, procedureId }: Props) {
             <div className="flex items-center gap-4 mb-4">
               <h3 className="text-sm font-semibold text-white uppercase tracking-wider">{inst.name}</h3>
               <span className={cn("px-2 py-0.5 rounded-full text-[10px] font-medium border", SOURCE_BADGES[inst.source] || "text-zinc-400 bg-zinc-800 border-zinc-700")}>
-                {inst.source === "optical_flow" ? "Optical Flow" : "FoundationPose"}
+                {SOURCE_LABELS[inst.source] || inst.source}
               </span>
-              <span className="text-xs text-zinc-600">{inst.frames} frames · {inst.duration_seconds}s</span>
+              <span className="text-xs text-zinc-600">
+                {inst.frames} frames · {inst.duration_seconds}s
+                {u === "m" && " · 3D world coords"}
+              </span>
               <div className="flex items-center gap-3 text-xs text-zinc-500 ml-auto">
                 <span className="flex items-center gap-1"><StatusDot status="pass" /> {passCount}</span>
                 <span className="flex items-center gap-1"><StatusDot status="marginal" /> {marginalCount}</span>
@@ -194,24 +237,24 @@ export function SkillsTab({ events, procedureId }: Props) {
                       "text-3xl font-bold tabular-nums",
                       m.status === "pass" ? "text-emerald-400" : m.status === "marginal" ? "text-amber-400" : "text-red-400"
                     )}>
-                      {m.key === "idle_fraction" ? Math.round(m.value * 100) : typeof m.value === "number" ? (m.value > 100 ? Math.round(m.value) : m.value) : m.value}
+                      {formatVal(m.value, m.key as string, u)}
                     </span>
-                    <span className="text-sm text-zinc-500">{m.key === "idle_fraction" ? "%" : m.unit}</span>
+                    <span className="text-sm text-zinc-500">{m.displayUnit}</span>
                   </div>
                   <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">{m.description}</p>
                 </div>
               ))}
 
               {/* Bimanual extras for tweezer */}
-              {inst.bimanual_correlation !== undefined && (
+              {inst.tip_spread_std !== undefined && (
                 <>
                   <div className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-white">Bimanual Correlation</span>
-                      <StatusDot status={inst.bimanual_correlation > 0.5 ? "pass" : inst.bimanual_correlation > 0.2 ? "marginal" : "fail"} />
+                      <StatusDot status={inst.bimanual_correlation! > 0.5 ? "pass" : inst.bimanual_correlation! > 0.2 ? "marginal" : "fail"} />
                     </div>
                     <div className="flex items-baseline gap-1">
-                      <span className={cn("text-3xl font-bold tabular-nums", inst.bimanual_correlation > 0.5 ? "text-emerald-400" : "text-amber-400")}>
+                      <span className={cn("text-3xl font-bold tabular-nums", inst.bimanual_correlation! > 0.5 ? "text-emerald-400" : "text-amber-400")}>
                         {inst.bimanual_correlation}
                       </span>
                       <span className="text-sm text-zinc-500">r</span>
@@ -221,15 +264,47 @@ export function SkillsTab({ events, procedureId }: Props) {
                   <div className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-medium text-white">Tip Spread σ</span>
-                      <StatusDot status={inst.tip_spread_std_px! < 15 ? "pass" : inst.tip_spread_std_px! < 30 ? "marginal" : "fail"} />
+                      <StatusDot status={inst.tip_spread_std! < 15 ? "pass" : inst.tip_spread_std! < 30 ? "marginal" : "fail"} />
                     </div>
                     <div className="flex items-baseline gap-1">
-                      <span className={cn("text-3xl font-bold tabular-nums", inst.tip_spread_std_px! < 15 ? "text-emerald-400" : "text-amber-400")}>
-                        {inst.tip_spread_std_px}
+                      <span className={cn("text-3xl font-bold tabular-nums", inst.tip_spread_std! < 15 ? "text-emerald-400" : "text-amber-400")}>
+                        {inst.tip_spread_std}
                       </span>
                       <span className="text-sm text-zinc-500">px</span>
                     </div>
                     <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">Std deviation of inter-tip distance (lower = more consistent grip)</p>
+                  </div>
+                </>
+              )}
+
+              {/* Hand separation for HaMeR */}
+              {inst.hand_separation_std !== undefined && (
+                <>
+                  <div className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Hand Coordination</span>
+                      <StatusDot status={inst.bimanual_correlation! > 0.3 ? "pass" : inst.bimanual_correlation! > 0.1 ? "marginal" : "fail"} />
+                    </div>
+                    <div className="flex items-baseline gap-1">
+                      <span className={cn("text-3xl font-bold tabular-nums", inst.bimanual_correlation! > 0.3 ? "text-emerald-400" : inst.bimanual_correlation! > 0.1 ? "text-amber-400" : "text-red-400")}>
+                        {inst.bimanual_correlation}
+                      </span>
+                      <span className="text-sm text-zinc-500">r</span>
+                    </div>
+                    <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">3D velocity correlation between left and right hands</p>
+                  </div>
+                  <div className="gradient-border p-4 hover:bg-white/[0.02] transition-all duration-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-white">Hand Separation σ</span>
+                      <StatusDot status={inst.hand_separation_std! < 0.03 ? "pass" : inst.hand_separation_std! < 0.06 ? "marginal" : "fail"} />
+                    </div>
+                    <div className="flex items-baseline gap-1">
+                      <span className={cn("text-3xl font-bold tabular-nums", inst.hand_separation_std! < 0.03 ? "text-emerald-400" : inst.hand_separation_std! < 0.06 ? "text-amber-400" : "text-red-400")}>
+                        {inst.hand_separation_std}
+                      </span>
+                      <span className="text-sm text-zinc-500">m</span>
+                    </div>
+                    <p className="text-xs text-zinc-600 mt-1.5 leading-relaxed">Std of inter-hand distance in 3D (lower = more consistent spatial coordination)</p>
                   </div>
                 </>
               )}
@@ -246,9 +321,11 @@ export function SkillsTab({ events, procedureId }: Props) {
         <div>
           <div className="text-sm text-white font-medium">Computed from Real Tracking Data</div>
           <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
-            Kinematic metrics are computed from per-frame instrument trajectories — optical flow tip tracking ({instruments.filter(i => i.source === "optical_flow").length} instruments)
-            {instruments.some(i => i.source === "foundation_pose") && ` and FoundationPose 6DoF centroid estimation (${instruments.filter(i => i.source === "foundation_pose").length} instrument)`}.
-            GOALS domain scores are mapped from aggregate kinematics using validated surgical skill assessment heuristics.
+            Kinematic metrics are computed from per-frame trajectories —
+            {instruments.some(i => i.source === "optical_flow") && ` optical flow tip tracking (${instruments.filter(i => i.source === "optical_flow").length} instruments)`}
+            {instruments.some(i => i.source === "foundation_pose") && `, FoundationPose 6DoF centroid (${instruments.filter(i => i.source === "foundation_pose").length} instrument)`}
+            {instruments.some(i => i.source === "hamer") && `, HaMeR 3D hand mesh reconstruction (${instruments.filter(i => i.source === "hamer").length} hands)`}.
+            {" "}GOALS domain scores combine instrument kinematics with 3D hand data for depth perception and bimanual assessment.
           </p>
         </div>
       </div>

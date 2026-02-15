@@ -279,10 +279,11 @@ export function ReportTab({ report, events, nodes, run, procedure, runId }: Prop
             accent
           />
           <ExportCard
-            title="Hand Kinematics CSV"
-            description="Surgeon hand position, orientation, and finger articulation data — left and right hand tracked independently"
+            title="Hand Trajectories CSV (HaMeR 3D)"
+            description="Per-frame (left_x, left_y, left_z, right_x, right_y, right_z) surgeon hand centroids from 3D mesh reconstruction — 496 frames"
             icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" /></svg>}
-            disabled
+            onClick={() => downloadStaticCSV("/data/hand_trajectories.csv", "hand_trajectories.csv")}
+            accent
           />
           <ExportCard
             title="Spatial Interactions CSV"

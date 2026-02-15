@@ -1,1 +1,3 @@
 .vercel
+public/data/rgb_mesh/*.obj
+public/data/rgb_mesh/*.jpg
