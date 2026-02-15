@@ -84,7 +84,7 @@ export function TimelineTab({ events, nodes, report }: Props) {
                 <source src={`/videos/${videoPath}`} type="video/mp4" />
               </video>
             </div>
-            {hasTipVideo && (
+            {hasTipVideo && (<>
               <div className="gradient-border overflow-hidden">
                 <div className="px-3 pt-2 pb-1 text-[10px] font-medium text-zinc-500 uppercase tracking-wider">Instrument Tip Tracking</div>
                 <video
@@ -96,7 +96,17 @@ export function TimelineTab({ events, nodes, report }: Props) {
                   <source src="/videos/surgery_video_tip.mp4" type="video/mp4" />
                 </video>
               </div>
-            )}
+              <div className="gradient-border overflow-hidden">
+                <div className="px-3 pt-2 pb-1 text-[10px] font-medium text-zinc-500 uppercase tracking-wider">SAM 2 Segmentation Mask</div>
+                <video
+                  controls
+                  className="w-full aspect-video bg-black"
+                  src="/videos/surgery_video_mask.mp4"
+                >
+                  <source src="/videos/surgery_video_mask.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </>)}
             <div className="text-xs text-zinc-500 px-1">
               Click events to seek video to that timestamp
             </div>
