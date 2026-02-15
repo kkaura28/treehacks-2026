@@ -38,19 +38,19 @@ export default function Surgeons() {
 
       const summaries: SurgeonSummary[] = [];
       for (const [name, sRuns] of byName) {
-        const withReports = sRuns.map((r) => ({ ...r, report: reportMap.get(r.id) })).filter((r) => r.report);
+        const withReports = sRuns.map((r: any) => ({ ...r, report: reportMap.get(r.id) })).filter((r: any) => r.report);
         if (withReports.length === 0) continue;
 
-        const scores = withReports.map((r) => r.report.compliance_score as number);
-        const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
-        const totalDevs = withReports.reduce((s, r) => s + (r.report.confirmed_count || 0) + (r.report.mitigated_count || 0) + (r.report.review_count || 0), 0);
+        const scores = withReports.map((r: any) => r.report.compliance_score as number);
+        const avg = scores.reduce((a: number, b: number) => a + b, 0) / scores.length;
+        const totalDevs = withReports.reduce((s: number, r: any) => s + (r.report.confirmed_count || 0) + (r.report.mitigated_count || 0) + (r.report.review_count || 0), 0);
 
         // Trend: compare last half avg to first half avg
         let trend = 0;
         if (scores.length >= 2) {
           const mid = Math.floor(scores.length / 2);
-          const firstHalf = scores.slice(0, mid).reduce((a, b) => a + b, 0) / mid;
-          const secondHalf = scores.slice(mid).reduce((a, b) => a + b, 0) / (scores.length - mid);
+          const firstHalf = scores.slice(0, mid).reduce((a: number, b: number) => a + b, 0) / mid;
+          const secondHalf = scores.slice(mid).reduce((a: number, b: number) => a + b, 0) / (scores.length - mid);
           trend = secondHalf - firstHalf;
         }
 
